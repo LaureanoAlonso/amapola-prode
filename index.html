@@ -339,11 +339,165 @@ const SB = (path, opts={}) => fetch(`${SB_URL}/rest/v1/${path}`, {
 // ─── DATOS DEL TORNEO ─────────────────────────────────────────────────────────
 const ADMIN_PW = "amapola2026";
 const TIENDA = "https://taplink.cc/amapola_estudiantilporteno";
-const GROUPS = {A:["Qatar","Ecuador","Senegal","Países Bajos"],B:["Inglaterra","Irán","EE.UU.","Gales"],C:["Argentina","Arabia Saudita","México","Polonia"],D:["Francia","Australia","Dinamarca","Túnez"],E:["España","Costa Rica","Alemania","Japón"],F:["Bélgica","Canadá","Marruecos","Croacia"],G:["Brasil","Serbia","Suiza","Camerún"],H:["Portugal","Ghana","Uruguay","Corea del Sur"]};
+// ── MUNDIAL 2026 — 48 selecciones, 12 grupos ─────────────────────────────────
+const GROUPS = {
+  A:["México","Sudáfrica","Corea del Sur","Rep. Checa"],
+  B:["Canadá","Bosnia y Herz.","Qatar","Suiza"],
+  C:["Brasil","Marruecos","Haití","Escocia"],
+  D:["EE.UU.","Paraguay","Australia","Turquía"],
+  E:["Alemania","Curazao","Costa de Marfil","Ecuador"],
+  F:["Países Bajos","Japón","Suecia","Túnez"],
+  G:["Bélgica","Egipto","Irán","Nueva Zelanda"],
+  H:["España","Cabo Verde","Arabia Saudita","Uruguay"],
+  I:["Francia","Senegal","Irak","Noruega"],
+  J:["Argentina","Argelia","Austria","Jordania"],
+  K:["Portugal","RD Congo","Uzbekistán","Colombia"],
+  L:["Inglaterra","Croacia","Ghana","Panamá"]
+};
 const ALL_TEAMS = Object.values(GROUPS).flat();
-const MATCHES = [{id:1,g:"A",h:"Qatar",a:"Ecuador",d:"20 Nov"},{id:2,g:"A",h:"Senegal",a:"Países Bajos",d:"21 Nov"},{id:3,g:"B",h:"Inglaterra",a:"Irán",d:"21 Nov"},{id:4,g:"B",h:"EE.UU.",a:"Gales",d:"21 Nov"},{id:5,g:"C",h:"Argentina",a:"Arabia Saudita",d:"22 Nov"},{id:6,g:"C",h:"México",a:"Polonia",d:"22 Nov"},{id:7,g:"D",h:"Francia",a:"Australia",d:"22 Nov"},{id:8,g:"D",h:"Dinamarca",a:"Túnez",d:"22 Nov"},{id:9,g:"E",h:"España",a:"Costa Rica",d:"23 Nov"},{id:10,g:"E",h:"Alemania",a:"Japón",d:"23 Nov"},{id:11,g:"F",h:"Marruecos",a:"Croacia",d:"23 Nov"},{id:12,g:"F",h:"Bélgica",a:"Canadá",d:"23 Nov"},{id:13,g:"G",h:"Brasil",a:"Serbia",d:"24 Nov"},{id:14,g:"G",h:"Suiza",a:"Camerún",d:"24 Nov"},{id:15,g:"H",h:"Portugal",a:"Ghana",d:"24 Nov"},{id:16,g:"H",h:"Uruguay",a:"Corea del Sur",d:"24 Nov"},{id:17,g:"A",h:"Qatar",a:"Senegal",d:"25 Nov"},{id:18,g:"A",h:"Países Bajos",a:"Ecuador",d:"25 Nov"},{id:19,g:"B",h:"Gales",a:"Irán",d:"25 Nov"},{id:20,g:"B",h:"Inglaterra",a:"EE.UU.",d:"25 Nov"},{id:21,g:"C",h:"Polonia",a:"Arabia Saudita",d:"26 Nov"},{id:22,g:"C",h:"Argentina",a:"México",d:"26 Nov"},{id:23,g:"D",h:"Francia",a:"Dinamarca",d:"26 Nov"},{id:24,g:"D",h:"Australia",a:"Túnez",d:"26 Nov"},{id:25,g:"E",h:"Japón",a:"Costa Rica",d:"27 Nov"},{id:26,g:"E",h:"Alemania",a:"España",d:"27 Nov"},{id:27,g:"F",h:"Bélgica",a:"Marruecos",d:"27 Nov"},{id:28,g:"F",h:"Croacia",a:"Canadá",d:"27 Nov"},{id:29,g:"G",h:"Brasil",a:"Suiza",d:"28 Nov"},{id:30,g:"G",h:"Camerún",a:"Serbia",d:"28 Nov"},{id:31,g:"H",h:"Corea del Sur",a:"Ghana",d:"28 Nov"},{id:32,g:"H",h:"Portugal",a:"Uruguay",d:"28 Nov"},{id:33,g:"A",h:"Ecuador",a:"Senegal",d:"29 Nov"},{id:34,g:"A",h:"Países Bajos",a:"Qatar",d:"29 Nov"},{id:35,g:"B",h:"Gales",a:"Inglaterra",d:"29 Nov"},{id:36,g:"B",h:"Irán",a:"EE.UU.",d:"29 Nov"},{id:37,g:"C",h:"Polonia",a:"Argentina",d:"30 Nov"},{id:38,g:"C",h:"Arabia Saudita",a:"México",d:"30 Nov"},{id:39,g:"D",h:"Australia",a:"Dinamarca",d:"30 Nov"},{id:40,g:"D",h:"Túnez",a:"Francia",d:"30 Nov"},{id:41,g:"E",h:"Costa Rica",a:"Alemania",d:"1 Dic"},{id:42,g:"E",h:"Japón",a:"España",d:"1 Dic"},{id:43,g:"F",h:"Canadá",a:"Marruecos",d:"1 Dic"},{id:44,g:"F",h:"Croacia",a:"Bélgica",d:"1 Dic"},{id:45,g:"G",h:"Camerún",a:"Brasil",d:"2 Dic"},{id:46,g:"G",h:"Serbia",a:"Suiza",d:"2 Dic"},{id:47,g:"H",h:"Ghana",a:"Uruguay",d:"2 Dic"},{id:48,g:"H",h:"Corea del Sur",a:"Portugal",d:"2 Dic"}];
-const GOALSCORERS = ["Lionel Messi","Cristiano Ronaldo","Kylian Mbappé","Neymar Jr.","Harry Kane","Robert Lewandowski","Lautaro Martínez","Romelu Lukaku","Vinicius Jr.","Pedri","Bukayo Saka","Cody Gakpo","Richarlison","Olivier Giroud","Memphis Depay","Raheem Sterling"];
-const FLAGS = {"Qatar":"🇶🇦","Ecuador":"🇪🇨","Senegal":"🇸🇳","Países Bajos":"🇳🇱","Inglaterra":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Irán":"🇮🇷","EE.UU.":"🇺🇸","Gales":"🏴󠁧󠁢󠁷󠁬󠁳󠁿","Argentina":"🇦🇷","Arabia Saudita":"🇸🇦","México":"🇲🇽","Polonia":"🇵🇱","Francia":"🇫🇷","Australia":"🇦🇺","Dinamarca":"🇩🇰","Túnez":"🇹🇳","España":"🇪🇸","Costa Rica":"🇨🇷","Alemania":"🇩🇪","Japón":"🇯🇵","Bélgica":"🇧🇪","Canadá":"🇨🇦","Marruecos":"🇲🇦","Croacia":"🇭🇷","Brasil":"🇧🇷","Serbia":"🇷🇸","Suiza":"🇨🇭","Camerún":"🇨🇲","Portugal":"🇵🇹","Ghana":"🇬🇭","Uruguay":"🇺🇾","Corea del Sur":"🇰🇷"};
+const MATCHES = [
+  // JORNADA 1
+  {id:1,g:"A",h:"México",a:"Sudáfrica",d:"11 Jun"},
+  {id:2,g:"A",h:"Corea del Sur",a:"Rep. Checa",d:"11 Jun"},
+  {id:3,g:"B",h:"Canadá",a:"Bosnia y Herz.",d:"12 Jun"},
+  {id:4,g:"D",h:"EE.UU.",a:"Paraguay",d:"12 Jun"},
+  {id:5,g:"B",h:"Qatar",a:"Suiza",d:"13 Jun"},
+  {id:6,g:"C",h:"Brasil",a:"Marruecos",d:"13 Jun"},
+  {id:7,g:"C",h:"Haití",a:"Escocia",d:"13 Jun"},
+  {id:8,g:"D",h:"Australia",a:"Turquía",d:"13 Jun"},
+  {id:9,g:"E",h:"Alemania",a:"Curazao",d:"14 Jun"},
+  {id:10,g:"F",h:"Países Bajos",a:"Japón",d:"14 Jun"},
+  {id:11,g:"E",h:"Costa de Marfil",a:"Ecuador",d:"14 Jun"},
+  {id:12,g:"F",h:"Suecia",a:"Túnez",d:"14 Jun"},
+  {id:13,g:"H",h:"España",a:"Cabo Verde",d:"15 Jun"},
+  {id:14,g:"G",h:"Bélgica",a:"Egipto",d:"15 Jun"},
+  {id:15,g:"H",h:"Arabia Saudita",a:"Uruguay",d:"15 Jun"},
+  {id:16,g:"G",h:"Irán",a:"Nueva Zelanda",d:"15 Jun"},
+  {id:17,g:"I",h:"Francia",a:"Senegal",d:"16 Jun"},
+  {id:18,g:"I",h:"Irak",a:"Noruega",d:"16 Jun"},
+  {id:19,g:"J",h:"Argentina",a:"Argelia",d:"16 Jun"},
+  {id:20,g:"J",h:"Austria",a:"Jordania",d:"16 Jun"},
+  {id:21,g:"K",h:"Portugal",a:"RD Congo",d:"17 Jun"},
+  {id:22,g:"L",h:"Inglaterra",a:"Croacia",d:"17 Jun"},
+  {id:23,g:"L",h:"Ghana",a:"Panamá",d:"17 Jun"},
+  {id:24,g:"K",h:"Uzbekistán",a:"Colombia",d:"17 Jun"},
+  // JORNADA 2
+  {id:25,g:"A",h:"Rep. Checa",a:"Sudáfrica",d:"18 Jun"},
+  {id:26,g:"B",h:"Suiza",a:"Bosnia y Herz.",d:"18 Jun"},
+  {id:27,g:"B",h:"Canadá",a:"Qatar",d:"18 Jun"},
+  {id:28,g:"A",h:"México",a:"Corea del Sur",d:"18 Jun"},
+  {id:29,g:"D",h:"EE.UU.",a:"Australia",d:"19 Jun"},
+  {id:30,g:"C",h:"Escocia",a:"Marruecos",d:"19 Jun"},
+  {id:31,g:"C",h:"Brasil",a:"Haití",d:"19 Jun"},
+  {id:32,g:"D",h:"Turquía",a:"Paraguay",d:"19 Jun"},
+  {id:33,g:"F",h:"Países Bajos",a:"Suecia",d:"20 Jun"},
+  {id:34,g:"E",h:"Alemania",a:"Costa de Marfil",d:"20 Jun"},
+  {id:35,g:"E",h:"Ecuador",a:"Curazao",d:"20 Jun"},
+  {id:36,g:"F",h:"Túnez",a:"Japón",d:"20 Jun"},
+  {id:37,g:"H",h:"España",a:"Arabia Saudita",d:"21 Jun"},
+  {id:38,g:"G",h:"Bélgica",a:"Irán",d:"21 Jun"},
+  {id:39,g:"H",h:"Uruguay",a:"Cabo Verde",d:"21 Jun"},
+  {id:40,g:"G",h:"Nueva Zelanda",a:"Egipto",d:"21 Jun"},
+  {id:41,g:"J",h:"Argentina",a:"Austria",d:"22 Jun"},
+  {id:42,g:"I",h:"Francia",a:"Irak",d:"22 Jun"},
+  {id:43,g:"I",h:"Noruega",a:"Senegal",d:"22 Jun"},
+  {id:44,g:"J",h:"Jordania",a:"Argelia",d:"22 Jun"},
+  {id:45,g:"K",h:"Portugal",a:"Uzbekistán",d:"23 Jun"},
+  {id:46,g:"L",h:"Inglaterra",a:"Ghana",d:"23 Jun"},
+  {id:47,g:"L",h:"Panamá",a:"Croacia",d:"23 Jun"},
+  {id:48,g:"K",h:"Colombia",a:"RD Congo",d:"23 Jun"},
+  // JORNADA 3
+  {id:49,g:"B",h:"Suiza",a:"Canadá",d:"24 Jun"},
+  {id:50,g:"B",h:"Bosnia y Herz.",a:"Qatar",d:"24 Jun"},
+  {id:51,g:"A",h:"Sudáfrica",a:"Corea del Sur",d:"24 Jun"},
+  {id:52,g:"A",h:"Rep. Checa",a:"México",d:"24 Jun"},
+  {id:53,g:"C",h:"Marruecos",a:"Haití",d:"25 Jun"},
+  {id:54,g:"C",h:"Escocia",a:"Brasil",d:"25 Jun"},
+  {id:55,g:"D",h:"Turquía",a:"EE.UU.",d:"25 Jun"},
+  {id:56,g:"D",h:"Paraguay",a:"Australia",d:"25 Jun"},
+  {id:57,g:"E",h:"Ecuador",a:"Alemania",d:"25 Jun"},
+  {id:58,g:"E",h:"Curazao",a:"Costa de Marfil",d:"25 Jun"},
+  {id:59,g:"F",h:"Japón",a:"Suecia",d:"25 Jun"},
+  {id:60,g:"F",h:"Túnez",a:"Países Bajos",d:"25 Jun"},
+  {id:61,g:"G",h:"Egipto",a:"Irán",d:"26 Jun"},
+  {id:62,g:"G",h:"Nueva Zelanda",a:"Bélgica",d:"26 Jun"},
+  {id:63,g:"H",h:"Cabo Verde",a:"Arabia Saudita",d:"26 Jun"},
+  {id:64,g:"H",h:"Uruguay",a:"España",d:"26 Jun"},
+  {id:65,g:"I",h:"Senegal",a:"Irak",d:"27 Jun"},
+  {id:66,g:"I",h:"Noruega",a:"Francia",d:"27 Jun"},
+  {id:67,g:"J",h:"Argelia",a:"Austria",d:"27 Jun"},
+  {id:68,g:"J",h:"Jordania",a:"Argentina",d:"27 Jun"},
+  {id:69,g:"K",h:"Colombia",a:"Portugal",d:"27 Jun"},
+  {id:70,g:"K",h:"RD Congo",a:"Uzbekistán",d:"27 Jun"},
+  {id:71,g:"L",h:"Panamá",a:"Inglaterra",d:"27 Jun"},
+  {id:72,g:"L",h:"Croacia",a:"Ghana",d:"27 Jun"},
+];
+const GOALSCORERS = [
+  // Argentina 🇦🇷
+  "Lionel Messi (ARG)","Lautaro Martínez (ARG)","Julián Álvarez (ARG)","Alejandro Garnacho (ARG)","Paulo Dybala (ARG)",
+  // Brasil 🇧🇷
+  "Vinicius Jr. (BRA)","Rodrygo (BRA)","Endrick (BRA)","Raphinha (BRA)","Gabriel Martinelli (BRA)",
+  // Francia 🇫🇷
+  "Kylian Mbappé (FRA)","Antoine Griezmann (FRA)","Ousmane Dembélé (FRA)","Marcus Thuram (FRA)","Kingsley Coman (FRA)",
+  // Portugal 🇵🇹
+  "Cristiano Ronaldo (POR)","Rafael Leão (POR)","Bernardo Silva (POR)","João Félix (POR)","Diogo Jota (POR)",
+  // Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿
+  "Harry Kane (ENG)","Bukayo Saka (ENG)","Phil Foden (ENG)","Jude Bellingham (ENG)","Cole Palmer (ENG)",
+  // España 🇪🇸
+  "Lamine Yamal (ESP)","Álvaro Morata (ESP)","Nico Williams (ESP)","Pedri (ESP)","Dani Olmo (ESP)",
+  // Alemania 🇩🇪
+  "Florian Wirtz (GER)","Kai Havertz (GER)","Leroy Sané (GER)","Jamal Musiala (GER)","Niclas Füllkrug (GER)",
+  // Países Bajos 🇳🇱
+  "Cody Gakpo (NED)","Memphis Depay (NED)","Donyell Malen (NED)","Wout Weghorst (NED)","Xavi Simons (NED)",
+  // Bélgica 🇧🇪
+  "Romelu Lukaku (BEL)","Lois Openda (BEL)","Jeremy Doku (BEL)","Kevin De Bruyne (BEL)",
+  // Noruega 🇳🇴
+  "Erling Haaland (NOR)","Alexander Sørloth (NOR)",
+  // Colombia 🇨🇴
+  "Luis Díaz (COL)","Jhon Duran (COL)","Borja (COL)","James Rodríguez (COL)",
+  // Uruguay 🇺🇾
+  "Darwin Núñez (URU)","Facundo Torres (URU)","Rodrigo Bentancur (URU)",
+  // México 🇲🇽
+  "Santiago Giménez (MEX)","Raúl Jiménez (MEX)","Hirving Lozano (MEX)",
+  // EE.UU. 🇺🇸
+  "Christian Pulisic (USA)","Folarin Balogun (USA)","Ricardo Pepi (USA)",
+  // Marruecos 🇲🇦
+  "Youssef En-Nesyri (MAR)","Hakim Ziyech (MAR)","Soufiane Rahimi (MAR)",
+  // Ecuador 🇪🇨
+  "Enner Valencia (ECU)","Kevin Rodríguez (ECU)",
+  // Senegal 🇸🇳
+  "Sadio Mané (SEN)","Ismaïla Sarr (SEN)","Boulaye Dia (SEN)",
+  // Japón 🇯🇵
+  "Ritsu Doan (JPN)","Ayase Ueda (JPN)","Kaoru Mitoma (JPN)",
+  // Croacia 🇭🇷
+  "Andrej Kramarić (CRO)","Luka Modrić (CRO)","Bruno Petković (CRO)",
+  // Australia 🇦🇺
+  "Mathew Leckie (AUS)","Mitchell Duke (AUS)",
+  // Ghana 🇬🇭
+  "Mohammed Kudus (GHA)","Antoine Semenyo (GHA)","Jordan Ayew (GHA)",
+  // Corea del Sur 🇰🇷
+  "Son Heung-min (KOR)","Hwang Hee-chan (KOR)","Cho Gue-sung (KOR)",
+  // Turquía 🇹🇷
+  "Arda Güler (TUR)","Kerem Aktürkoğlu (TUR)","Burak Yılmaz (TUR)",
+  // Austria 🇦🇹
+  "Marcel Sabitzer (AUT)","Marko Arnautovic (AUT)",
+  // Suecia 🇸🇪
+  "Alexander Isak (SWE)","Viktor Gyökeres (SWE)","Dejan Kulusevski (SWE)",
+];
+const FLAGS = {
+  "México":"🇲🇽","Sudáfrica":"🇿🇦","Corea del Sur":"🇰🇷","Rep. Checa":"🇨🇿",
+  "Canadá":"🇨🇦","Bosnia y Herz.":"🇧🇦","Qatar":"🇶🇦","Suiza":"🇨🇭",
+  "Brasil":"🇧🇷","Marruecos":"🇲🇦","Haití":"🇭🇹","Escocia":"🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+  "EE.UU.":"🇺🇸","Paraguay":"🇵🇾","Australia":"🇦🇺","Turquía":"🇹🇷",
+  "Alemania":"🇩🇪","Curazao":"🇨🇼","Costa de Marfil":"🇨🇮","Ecuador":"🇪🇨",
+  "Países Bajos":"🇳🇱","Japón":"🇯🇵","Suecia":"🇸🇪","Túnez":"🇹🇳",
+  "Bélgica":"🇧🇪","Egipto":"🇪🇬","Irán":"🇮🇷","Nueva Zelanda":"🇳🇿",
+  "España":"🇪🇸","Cabo Verde":"🇨🇻","Arabia Saudita":"🇸🇦","Uruguay":"🇺🇾",
+  "Francia":"🇫🇷","Senegal":"🇸🇳","Irak":"🇮🇶","Noruega":"🇳🇴",
+  "Argentina":"🇦🇷","Argelia":"🇩🇿","Austria":"🇦🇹","Jordania":"🇯🇴",
+  "Portugal":"🇵🇹","RD Congo":"🇨🇩","Uzbekistán":"🇺🇿","Colombia":"🇨🇴",
+  "Inglaterra":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croacia":"🇭🇷","Ghana":"🇬🇭","Panamá":"🇵🇦"
+};
 const TIPO_COLORS = {promo:{bg:"rgba(39,174,96,.12)",border:"rgba(39,174,96,.35)",text:"#27ae60"},mundial:{bg:"rgba(52,152,219,.12)",border:"rgba(52,152,219,.35)",text:"#3498db"},evento:{bg:"rgba(155,89,182,.12)",border:"rgba(155,89,182,.35)",text:"#9b59b6"},menu:{bg:"rgba(201,168,76,.12)",border:"rgba(201,168,76,.35)",text:"#C9A84C"}};
 
 // ─── ESTADO ───────────────────────────────────────────────────────────────────
@@ -523,7 +677,7 @@ function renderRegistro(){
   if(S.registered){el.innerHTML=`<div class="card"><div class="card-title">✦ Ya estás registrado</div><div class="info">Completá tus pronósticos y los especiales para sumar puntos.</div><button class="btn" onclick="goTo('pronosticos')">Ver mis pronósticos →</button></div>`;return;}
   el.innerHTML=`
     <div class="card">
-      <div class="info">✦ Completá tus datos, pronosticá los 48 partidos y competí por premios en Amapola.</div>
+      <div class="info">✦ Completá tus datos, pronosticá los 72 partidos y competí por premios en Amapola.</div>
       <div class="mb"><label class="lbl">Nombre completo</label><input class="inp" id="regNombre" placeholder="Ej: Martín González"/></div>
       <div class="mb"><label class="lbl">Email</label><input class="inp" id="regEmail" type="email" placeholder="tu@email.com"/></div>
       <div class="mb" style="margin-bottom:18px"><label class="lbl">WhatsApp / Teléfono</label><input class="inp" id="regTel" type="tel" placeholder="+54 11 ..."/></div>
@@ -531,7 +685,7 @@ function renderRegistro(){
     </div>
     <div class="card">
       <div class="card-title">¿Cómo funciona?</div>
-      ${[["1","Registrate con nombre, email y teléfono."],["2","Pronosticá los 48 partidos (1, X o 2)."],["3","Elegí el campeón y el goleador."],["4","¡Los mejores ganan premios en Amapola!"]].map(([n,t])=>`<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:11px"><div style="min-width:21px;height:21px;border-radius:50%;background:rgba(201,168,76,.12);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);font-weight:700;flex-shrink:0">${n}</div><div style="font-size:12px;color:var(--muted);line-height:1.65;padding-top:2px">${t}</div></div>`).join("")}
+      ${[["1","Registrate con nombre, email y teléfono."],["2","Pronosticá los 72 partidos (1, X o 2)."],["3","Elegí el campeón y el goleador."],["4","¡Los mejores ganan premios en Amapola!"]].map(([n,t])=>`<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:11px"><div style="min-width:21px;height:21px;border-radius:50%;background:rgba(201,168,76,.12);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);font-weight:700;flex-shrink:0">${n}</div><div style="font-size:12px;color:var(--muted);line-height:1.65;padding-top:2px">${t}</div></div>`).join("")}
     </div>
     <div style="text-align:center;margin-bottom:12px"><span style="font-size:10px;color:var(--muted)">Ya hay <strong style="color:var(--gold)">${S.participants.length}</strong> participantes inscriptos</span></div>`;
 }
