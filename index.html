@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="theme-color" content="#0b0b0b"/>
+<title>Amapola · Prode Mundial 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0b0b0b;--card:#141414;--card2:#1c1c1c;
+  --gold:#C9A84C;--gold-lt:#e8c97a;--gold-dk:#8a6820;
+  --cream:#f0ead8;--muted:#7a7060;--text:#ddd5c0;
+  --border:rgba(201,168,76,.15);--red:#c0392b;--green:#27ae60;
+}
+html,body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.app{min-height:100vh;background:var(--bg);background-image:radial-gradient(ellipse at 10% 0%,rgba(201,168,76,.05),transparent 55%)}
+
+/* HEADER */
+.hdr{background:#080808;border-bottom:1px solid var(--border);padding:20px 16px 16px;text-align:center;position:relative}
+.hdr::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.hdr-eyebrow{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:8px}
+.hdr-title{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--cream);letter-spacing:2px;line-height:1}
+.hdr-orn{display:flex;align-items:center;gap:10px;justify-content:center;margin:8px 0 4px}
+.hdr-line{height:1px;width:36px;background:linear-gradient(90deg,transparent,var(--gold-dk))}
+.hdr-sub{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.6}
+.tienda-btn{position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:4px;padding:5px 10px;background:linear-gradient(135deg,var(--gold-dk),var(--gold));border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:9px;font-weight:600;letter-spacing:1px;color:#000;cursor:pointer;text-decoration:none}
+.admin-badge{position:absolute;top:12px;right:12px;padding:5px 10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:2px;font-size:9px;letter-spacing:1px;color:var(--gold);cursor:pointer;font-family:'Jost',sans-serif}
+
+/* NAV */
+.nav{display:flex;background:#060606;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nb{flex:1;min-width:58px;padding:11px 4px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Jost',sans-serif;font-size:8px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:.2s;white-space:nowrap}
+.nb:hover{color:var(--text)}
+.nb.on{color:var(--gold);border-bottom-color:var(--gold)}
+.nb.rtab{color:#e74c3c!important}
+.nb.rtab.on{border-bottom-color:#e74c3c!important}
+
+/* WRAP */
+.wrap{padding:16px 14px 100px;max-width:640px;margin:0 auto}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:18px;margin-bottom:12px}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:13px 0}
+
+/* FORM */
+.lbl{display:block;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.inp{width:100%;padding:11px 13px;background:#0e0e0e;border:1px solid rgba(201,168,76,.2);border-radius:2px;color:var(--cream);font-family:'Jost',sans-serif;font-size:14px;outline:none;transition:.2s}
+.inp:focus{border-color:var(--gold)}
+.inp::placeholder{color:var(--muted)}
+.sel{width:100%;padding:11px 34px 11px 13px;background:#0e0e0e;border:1px solid rgba(201,168,76,.2);border-radius:2px;color:var(--cream);font-family:'Jost',sans-serif;font-size:14px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.sel option{background:#141414}
+.textarea{width:100%;padding:11px 13px;background:#0e0e0e;border:1px solid rgba(201,168,76,.2);border-radius:2px;color:var(--cream);font-family:'Jost',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:70px}
+.mb{margin-bottom:13px}
+
+/* BOTONES */
+.btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--gold-lt));border:none;border-radius:2px;color:#000;font-family:'Jost',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.btn:hover{opacity:.9}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+.btn-tienda{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,#0e0e0e,#1a1200);border:1px solid var(--gold);border-radius:3px;color:var(--gold);font-family:'Jost',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;margin-bottom:10px}
+.btn-ghost{background:none;border:1px solid var(--border);color:var(--muted);padding:9px 16px;border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;cursor:pointer;transition:.2s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sm{padding:7px 14px;font-size:10px;letter-spacing:2px;width:auto}
+.btn-green{background:linear-gradient(135deg,#1e8449,#27ae60)!important;color:#fff!important}
+
+/* PROGRESS */
+.prog-wrap{background:#0a0a0a;border-radius:2px;height:3px;border:1px solid var(--border);margin-top:6px}
+.prog-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold-dk),var(--gold));transition:width .4s}
+
+/* GRUPOS */
+.gtabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:13px}
+.gtab{padding:5px 10px;background:#0e0e0e;border:1px solid rgba(201,168,76,.14);border-radius:2px;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:.15s;font-family:'Jost',sans-serif}
+.gtab:hover,.gtab.on{color:var(--gold);border-color:var(--gold)}
+.gtab.on{background:rgba(201,168,76,.1)}
+
+/* PARTIDO */
+.match{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:13px;margin-bottom:8px}
+.match-top{display:flex;justify-content:space-between;margin-bottom:9px}
+.match-grp{font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.match-dt{font-size:8px;color:var(--muted)}
+.match-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:5px}
+.team{font-size:12px;font-weight:500;color:var(--cream)}
+.tl{text-align:right}.tr{text-align:left}
+.flag{font-size:18px;display:block}
+.vs-txt{font-family:'Cormorant Garamond',serif;color:var(--gold-dk);font-size:14px;text-align:center}
+.rbtns{display:flex;gap:5px;margin-top:10px;justify-content:center}
+.rbtn{flex:1;max-width:74px;padding:8px 0;background:#0d0d0d;border:1px solid rgba(201,168,76,.18);border-radius:2px;color:var(--muted);font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:.15s}
+.rbtn:hover,.rbtn.on{border-color:var(--gold);color:var(--gold)}
+.rbtn.on{background:rgba(201,168,76,.15)}
+.rbtn.correct{background:rgba(39,174,96,.2)!important;border-color:var(--green)!important;color:var(--green)!important}
+.rbtn.wrong{border-color:#333!important;color:#333!important}
+
+/* BADGE */
+.badge{display:inline-block;padding:2px 7px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);border-radius:2px;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+.badge-red{background:rgba(192,57,43,.1)!important;border-color:rgba(192,57,43,.35)!important;color:var(--red)!important}
+.badge-green{background:rgba(39,174,96,.1)!important;border-color:rgba(39,174,96,.35)!important;color:var(--green)!important}
+
+/* RANKING */
+.rk{display:flex;align-items:center;gap:10px;padding:11px 13px;background:#0e0e0e;border:1px solid var(--border);border-radius:3px;margin-bottom:7px}
+.rk.me{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.05)}
+.rk-n{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);min-width:26px;text-align:center}
+.rk-info{flex:1}
+.rk-name{font-size:13px;color:var(--cream);font-weight:500}
+.rk-sub{font-size:9px;color:var(--muted)}
+.rk-pts{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);font-weight:600}
+.rk-lbl{font-size:7px;letter-spacing:1px;color:var(--muted);text-align:right}
+
+/* INFO */
+.info{padding:9px 11px;background:rgba(201,168,76,.05);border-left:2px solid var(--gold);border-radius:0 2px 2px 0;font-size:11px;color:var(--muted);margin-bottom:11px;line-height:1.6}
+
+/* OFERTAS */
+.oferta-card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:16px;margin-bottom:10px;position:relative;overflow:hidden}
+.oferta-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold)}
+.oferta-badge{display:inline-block;padding:2px 8px;border-radius:2px;font-size:8px;letter-spacing:2px;font-weight:600;margin-bottom:7px}
+.oferta-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);margin-bottom:5px}
+.oferta-desc{font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:10px}
+.oferta-precio{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);font-weight:600}
+.oferta-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--gold);font-size:10px;font-weight:600;letter-spacing:1px;cursor:pointer;text-decoration:none}
+
+/* TIENDA HERO */
+.tienda-hero{background:linear-gradient(135deg,#0e0e0e,#1a1400);border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:28px 20px;text-align:center;margin-bottom:14px}
+
+/* ADMIN */
+.admin-section{padding:14px;background:rgba(231,76,60,.03);border:1px solid rgba(231,76,60,.13);border-radius:3px;margin-bottom:12px}
+.admin-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e74c3c;margin-bottom:12px}
+.admin-match{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.admin-match:last-child{border-bottom:none}
+.admin-teams{flex:1;font-size:11px;color:var(--text)}
+.admin-rbtns{display:flex;gap:4px}
+.admin-rbtn{padding:5px 11px;background:#111;border:1px solid rgba(201,168,76,.18);border-radius:2px;color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;font-family:'Jost',sans-serif}
+.admin-rbtn.on{background:var(--gold);border-color:var(--gold);color:#000}
+.admin-rbtn.del{color:var(--red)!important;border-color:rgba(192,57,43,.3)!important}
+
+/* OFERTA ADMIN */
+.oferta-admin{background:#111;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.oferta-admin-info{flex:1}
+.oferta-admin-titulo{font-size:13px;color:var(--cream);font-weight:500;margin-bottom:2px}
+.oferta-admin-desc{font-size:10px;color:var(--muted)}
+.icon-btn{padding:5px 9px;background:none;border:1px solid var(--border);border-radius:2px;color:var(--muted);cursor:pointer;font-size:12px}
+.icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.icon-btn.del:hover{border-color:var(--red);color:var(--red)}
+
+/* TOGGLE */
+.toggle-wrap{display:flex;align-items:center;gap:6px;cursor:pointer;margin-top:6px}
+.toggle-dot{width:28px;height:16px;border-radius:8px;background:#222;border:1px solid var(--border);position:relative;transition:.2s;flex-shrink:0}
+.toggle-dot.on{background:rgba(39,174,96,.3);border-color:var(--green)}
+.toggle-dot::after{content:'';position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--muted);transition:.2s}
+.toggle-dot.on::after{left:14px;background:var(--green)}
+.toggle-label{font-size:10px;color:var(--muted)}
+.toggle-dot.on + .toggle-label{color:var(--green)}
+
+/* PARTICIPANTS TABLE */
+.p-table{width:100%;border-collapse:collapse;font-size:11px}
+.p-table th{text-align:left;padding:6px 8px;color:var(--gold);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.p-table td{padding:8px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text);vertical-align:top}
+
+/* SHARE */
+.share-box{background:#0e0e0e;border:1px solid var(--border);border-radius:3px;padding:10px 12px;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.share-url{flex:1;font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{padding:6px 12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--gold);font-size:10px;cursor:pointer;white-space:nowrap;font-family:'Jost',sans-serif}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-bg.hidden{display:none}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:26px 20px;width:100%;max-width:360px;max-height:88vh;overflow-y:auto}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:16px;text-align:center}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--gold);border-radius:3px;padding:10px 20px;font-size:12px;color:var(--cream);z-index:200;animation:slideup .3s ease;white-space:nowrap;pointer-events:none}
+.toast.hidden{display:none}
+@keyframes slideup{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* PREMIO */
+.premio{padding:14px 13px;margin-bottom:8px;border-radius:3px;border:1px solid var(--border);background:#0e0e0e}
+.premio.top{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.3)}
+
+/* HIDDEN */
+.page{display:none}.page.active{display:block}
+.hidden{display:none!important}
+
+/* FORM ROW */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px}
+
+/* OK */
+.ok{text-align:center;padding:32px 16px}
+.ok-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);margin:14px 0 8px}
+.ok-txt{font-size:12px;color:var(--muted);line-height:1.8}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <a class="tienda-btn" href="https://taplink.cc/amapola_estudiantilporteno" target="_blank">🛒 Tienda</a>
+    <button class="admin-badge" onclick="toggleAdminModal()">⚙ Admin</button>
+    <div class="hdr-eyebrow">Café · Comida · Encuentros</div>
+    <div style="display:flex;justify-content:center;margin-bottom:8px">
+      <svg width="44" height="44" viewBox="0 0 100 100" fill="none">
+        <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(0 50 50)"/>
+        <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(60 50 50)"/>
+        <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(120 50 50)"/>
+        <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(180 50 50)"/>
+        <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(240 50 50)"/>
+        <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(300 50 50)"/>
+        <circle cx="50" cy="50" r="10" fill="#0c0c0c"/>
+        <circle cx="50" cy="50" r="6" fill="#C9A84C"/>
+        <circle cx="50" cy="50" r="3" fill="#0c0c0c"/>
+      </svg>
+    </div>
+    <div class="hdr-title">AMAPOLA</div>
+    <div class="hdr-orn"><div class="hdr-line"></div><span style="font-size:8px;letter-spacing:3px;color:var(--gold);opacity:.65">ESTACIÓN PORTEÑO</span><div class="hdr-line"></div></div>
+    <div class="hdr-sub">Prode · Mundial 2026</div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="mainNav">
+    <button class="nb on" onclick="goTo('inicio')">✦ Inicio</button>
+    <button class="nb" onclick="goTo('ofertas')">🔥 Ofertas</button>
+    <button class="nb" onclick="goTo('tienda')">🛒 Tienda</button>
+    <button class="nb" onclick="goTo('registro')">📝 Inscripción</button>
+    <button class="nb" onclick="goTo('pronosticos')">⚽ Pronós.</button>
+    <button class="nb" onclick="goTo('especiales')">★ Especiales</button>
+    <button class="nb" onclick="goTo('ranking')">🏆 Ranking</button>
+    <button class="nb" onclick="goTo('premios')">🎁 Premios</button>
+    <button class="nb rtab hidden" id="adminNavBtn" onclick="goTo('admin')">⚙ Admin</button>
+  </nav>
+
+  <div class="wrap">
+
+    <!-- ═══════════════════ INICIO ═══════════════════ -->
+    <div class="page active" id="page-inicio">
+      <div class="card" style="text-align:center;padding-bottom:22px;background:linear-gradient(160deg,#141414,#1a1200)">
+        <svg width="48" height="48" viewBox="0 0 100 100" fill="none" style="margin-bottom:10px">
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(0 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(60 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(120 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(180 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(240 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(300 50 50)"/>
+          <circle cx="50" cy="50" r="10" fill="#0c0c0c"/>
+          <circle cx="50" cy="50" r="6" fill="#C9A84C"/>
+          <circle cx="50" cy="50" r="3" fill="#0c0c0c"/>
+        </svg>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--cream);margin-bottom:6px">Prode del Mundial</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:16px" id="inscriptosCount">Cargando...</div>
+        <button class="btn" id="inicioMainBtn" onclick="goTo('registro')">Inscribirme gratis →</button>
+      </div>
+
+      <div id="ofertasDestacadas"></div>
+
+      <div style="background:linear-gradient(135deg,#111,#1a1200);border:1px solid rgba(201,168,76,.2);border-radius:3px;padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:12px">
+        <div style="font-size:32px">🛒</div>
+        <div style="flex:1">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);margin-bottom:3px">Pedidos online</div>
+          <div style="font-size:11px;color:var(--muted)">Hacé tu pedido desde casa. Menú completo disponible.</div>
+        </div>
+        <a href="https://taplink.cc/amapola_estudiantilporteno" target="_blank" style="padding:8px 12px;background:linear-gradient(135deg,var(--gold-dk),var(--gold));border-radius:2px;color:#000;font-size:10px;font-weight:700;letter-spacing:1px;text-decoration:none;white-space:nowrap">Ir →</a>
+      </div>
+
+      <div class="card">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">📲 Compartí el prode</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Invitá a clientes y amigos. Cuantos más jugadores, más divertido.</div>
+        <div class="share-box"><span class="share-url" id="shareUrlInicio">—</span><button class="copy-btn" onclick="copyLink()">Copiar</button></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ OFERTAS ═══════════════════ -->
+    <div class="page" id="page-ofertas">
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-title">🔥 Ofertas & Promociones</div>
+        <div class="info">Precios y disponibilidad sujetos a cambio. Consultá en el local o pedí online.</div>
+        <a class="btn-tienda" href="https://taplink.cc/amapola_estudiantilporteno" target="_blank">🛒 Ver menú completo y pedir online</a>
+      </div>
+      <div id="ofertasLista"></div>
+      <a class="btn-tienda" href="https://taplink.cc/amapola_estudiantilporteno" target="_blank" style="margin-top:8px">🛒 Ir a la tienda online de Amapola</a>
+    </div>
+
+    <!-- ═══════════════════ TIENDA ═══════════════════ -->
+    <div class="page" id="page-tienda">
+      <div class="tienda-hero">
+        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" style="margin-bottom:10px">
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(0 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(60 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(120 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(180 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(240 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(300 50 50)"/>
+          <circle cx="50" cy="50" r="10" fill="#0c0c0c"/>
+          <circle cx="50" cy="50" r="6" fill="#C9A84C"/>
+          <circle cx="50" cy="50" r="3" fill="#0c0c0c"/>
+        </svg>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--cream);margin-bottom:4px">Tienda Online</div>
+        <div style="font-size:9px;letter-spacing:3px;color:var(--gold);opacity:.7;text-transform:uppercase;margin-bottom:12px">Amapola · Estación Porteño</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:20px">Hacé tu pedido desde donde estés.<br>Menú completo, combos y promos del Mundial.</div>
+        <a class="btn-tienda" href="https://taplink.cc/amapola_estudiantilporteno" target="_blank" style="max-width:300px;margin:0 auto">🛒 Ir a la tienda de Amapola</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:5px">📱</div><div style="font-size:10px;color:var(--muted);line-height:1.4">Pedido desde el celular, fácil y rápido</div></div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:5px">🍔</div><div style="font-size:10px;color:var(--muted);line-height:1.4">Menú completo con todas las opciones</div></div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:5px">⚽</div><div style="font-size:10px;color:var(--muted);line-height:1.4">Combos especiales para ver el Mundial</div></div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:5px">🎉</div><div style="font-size:10px;color:var(--muted);line-height:1.4">Eventos y reservas para grupos</div></div>
+      </div>
+      <div id="tiendaOfertas"></div>
+    </div>
+
+    <!-- ═══════════════════ REGISTRO ═══════════════════ -->
+    <div class="page" id="page-registro">
+      <div id="registroContent"></div>
+    </div>
+
+    <!-- ═══════════════════ PRONÓSTICOS ═══════════════════ -->
+    <div class="page" id="page-pronosticos">
+      <div id="pronosticosContent"></div>
+    </div>
+
+    <!-- ═══════════════════ ESPECIALES ═══════════════════ -->
+    <div class="page" id="page-especiales">
+      <div id="especialesContent"></div>
+    </div>
+
+    <!-- ═══════════════════ RANKING ═══════════════════ -->
+    <div class="page" id="page-ranking">
+      <div id="rankingContent"></div>
+    </div>
+
+    <!-- ═══════════════════ PREMIOS ═══════════════════ -->
+    <div class="page" id="page-premios">
+      <div class="card" style="text-align:center;padding-bottom:20px">
+        <svg width="46" height="46" viewBox="0 0 100 100" fill="none" style="margin-bottom:10px">
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(0 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(60 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(120 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(180 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(240 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(300 50 50)"/>
+          <circle cx="50" cy="50" r="10" fill="#0c0c0c"/>
+          <circle cx="50" cy="50" r="6" fill="#C9A84C"/>
+          <circle cx="50" cy="50" r="3" fill="#0c0c0c"/>
+        </svg>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold)">Premios Amapola</div>
+        <div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:4px">Estación Porteño · Mundial 2026</div>
+      </div>
+      <div class="premio top"><div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:3px">🥇 1° Puesto</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);margin-bottom:3px">Cena para 2 personas</div><div style="font-size:11px;color:var(--muted)">Menú completo a elección en Amapola</div></div>
+      <div class="premio"><div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:3px">🥈 2° Puesto</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);margin-bottom:3px">Almuerzo para 2 personas</div><div style="font-size:11px;color:var(--muted)">Menú del día + bebidas incluidas</div></div>
+      <div class="premio"><div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:3px">🥉 3° Puesto</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);margin-bottom:3px">Cortesía especial</div><div style="font-size:11px;color:var(--muted)">Postre + bebida para compartir</div></div>
+      <div class="card" style="margin-top:10px">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:9px">Sistema de puntos</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(201,168,76,.07)"><span style="font-size:12px;color:var(--muted)">Resultado correcto (1-X-2)</span><span class="badge">3 pts</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(201,168,76,.07)"><span style="font-size:12px;color:var(--muted)">Campeón acertado</span><span class="badge">10 pts</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0"><span style="font-size:12px;color:var(--muted)">Goleador acertado</span><span class="badge">8 pts</span></div>
+        <div style="margin-top:14px;text-align:center;font-size:10px;color:var(--muted);line-height:1.8">Válido hasta el 31/12/2026<br><span style="color:var(--gold);letter-spacing:1px">CAFÉ · COMIDA · ENCUENTROS</span></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ ADMIN ═══════════════════ -->
+    <div class="page" id="page-admin">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#e74c3c">⚙ Panel de Administración</div>
+        <span class="badge badge-red">Admin</span>
+      </div>
+      <div class="gtabs" id="adminSubTabs">
+        <button class="gtab on" onclick="setAdminTab('ofertas')">🔥 Ofertas</button>
+        <button class="gtab" onclick="setAdminTab('resultados')">⚽ Resultados</button>
+        <button class="gtab" onclick="setAdminTab('especiales')">★ Especiales</button>
+        <button class="gtab" onclick="setAdminTab('participantes')">👥 Participantes</button>
+      </div>
+      <div id="adminContent"></div>
+    </div>
+
+  </div><!-- /wrap -->
+
+  <!-- MODAL ADMIN LOGIN -->
+  <div class="modal-bg hidden" id="modalAdmin">
+    <div class="modal">
+      <div style="text-align:center;margin-bottom:12px">
+        <svg width="34" height="34" viewBox="0 0 100 100" fill="none">
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(0 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(60 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(120 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(180 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(240 50 50)"/>
+          <ellipse cx="50" cy="27" rx="13" ry="21" fill="#C9A84C" opacity=".85" transform="rotate(300 50 50)"/>
+          <circle cx="50" cy="50" r="10" fill="#0c0c0c"/>
+          <circle cx="50" cy="50" r="6" fill="#C9A84C"/>
+          <circle cx="50" cy="50" r="3" fill="#0c0c0c"/>
+        </svg>
+      </div>
+      <div class="modal-title">Acceso Admin</div>
+      <div class="mb">
+        <label class="lbl">Contraseña</label>
+        <input class="inp" type="password" id="adminPwInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdmin()"/>
+        <div id="adminPwErr" class="hidden" style="font-size:11px;color:var(--red);margin-top:4px">Contraseña incorrecta.</div>
+      </div>
+      <button class="btn" onclick="checkAdmin()">Ingresar</button>
+      <div style="text-align:center;margin-top:10px"><button class="btn-ghost" onclick="closeAdminModal()">Cancelar</button></div>
+    </div>
+  </div>
+
+  <!-- MODAL OFERTA -->
+  <div class="modal-bg hidden" id="modalOferta">
+    <div class="modal">
+      <div class="modal-title" id="modalOfertaTitle">Nueva oferta</div>
+      <input type="hidden" id="ofEditId"/>
+      <div class="form-row">
+        <div><label class="lbl">Emoji</label><input class="inp" id="ofEmoji" value="🍔" style="font-size:20px;text-align:center"/></div>
+        <div><label class="lbl">Badge</label><input class="inp" id="ofBadge" placeholder="PROMO"/></div>
+      </div>
+      <div class="mb">
+        <label class="lbl">Tipo</label>
+        <select class="sel" id="ofTipo">
+          <option value="promo">Promo del día</option>
+          <option value="mundial">Especial Mundial</option>
+          <option value="evento">Evento</option>
+          <option value="menu">Menú</option>
+        </select>
+      </div>
+      <div class="mb"><label class="lbl">Título</label><input class="inp" id="ofTitulo" placeholder="Ej: Combo de la tarde"/></div>
+      <div class="mb"><label class="lbl">Descripción</label><textarea class="textarea" id="ofDesc" placeholder="Detallá la oferta..."></textarea></div>
+      <div class="mb"><label class="lbl">Precio</label><input class="inp" id="ofPrecio" placeholder="$0.000"/></div>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="btn btn-green" style="flex:1" onclick="saveOferta()">Guardar</button>
+        <button class="btn-ghost" onclick="closeOfertaModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast hidden" id="toast"></div>
+
+</div><!-- /app -->
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// DATOS
+// ─────────────────────────────────────────────────────────────────────────────
+const ADMIN_PW = "amapola2026";
+const TIENDA   = "https://taplink.cc/amapola_estudiantilporteno";
+
+const GROUPS = {
+  A:["Qatar","Ecuador","Senegal","Países Bajos"],
+  B:["Inglaterra","Irán","EE.UU.","Gales"],
+  C:["Argentina","Arabia Saudita","México","Polonia"],
+  D:["Francia","Australia","Dinamarca","Túnez"],
+  E:["España","Costa Rica","Alemania","Japón"],
+  F:["Bélgica","Canadá","Marruecos","Croacia"],
+  G:["Brasil","Serbia","Suiza","Camerún"],
+  H:["Portugal","Ghana","Uruguay","Corea del Sur"],
+};
+const ALL_TEAMS = Object.values(GROUPS).flat();
+const MATCHES = [
+  {id:1,g:"A",h:"Qatar",a:"Ecuador",d:"20 Nov"},
+  {id:2,g:"A",h:"Senegal",a:"Países Bajos",d:"21 Nov"},
+  {id:3,g:"B",h:"Inglaterra",a:"Irán",d:"21 Nov"},
+  {id:4,g:"B",h:"EE.UU.",a:"Gales",d:"21 Nov"},
+  {id:5,g:"C",h:"Argentina",a:"Arabia Saudita",d:"22 Nov"},
+  {id:6,g:"C",h:"México",a:"Polonia",d:"22 Nov"},
+  {id:7,g:"D",h:"Francia",a:"Australia",d:"22 Nov"},
+  {id:8,g:"D",h:"Dinamarca",a:"Túnez",d:"22 Nov"},
+  {id:9,g:"E",h:"España",a:"Costa Rica",d:"23 Nov"},
+  {id:10,g:"E",h:"Alemania",a:"Japón",d:"23 Nov"},
+  {id:11,g:"F",h:"Marruecos",a:"Croacia",d:"23 Nov"},
+  {id:12,g:"F",h:"Bélgica",a:"Canadá",d:"23 Nov"},
+  {id:13,g:"G",h:"Brasil",a:"Serbia",d:"24 Nov"},
+  {id:14,g:"G",h:"Suiza",a:"Camerún",d:"24 Nov"},
+  {id:15,g:"H",h:"Portugal",a:"Ghana",d:"24 Nov"},
+  {id:16,g:"H",h:"Uruguay",a:"Corea del Sur",d:"24 Nov"},
+  {id:17,g:"A",h:"Qatar",a:"Senegal",d:"25 Nov"},
+  {id:18,g:"A",h:"Países Bajos",a:"Ecuador",d:"25 Nov"},
+  {id:19,g:"B",h:"Gales",a:"Irán",d:"25 Nov"},
+  {id:20,g:"B",h:"Inglaterra",a:"EE.UU.",d:"25 Nov"},
+  {id:21,g:"C",h:"Polonia",a:"Arabia Saudita",d:"26 Nov"},
+  {id:22,g:"C",h:"Argentina",a:"México",d:"26 Nov"},
+  {id:23,g:"D",h:"Francia",a:"Dinamarca",d:"26 Nov"},
+  {id:24,g:"D",h:"Australia",a:"Túnez",d:"26 Nov"},
+  {id:25,g:"E",h:"Japón",a:"Costa Rica",d:"27 Nov"},
+  {id:26,g:"E",h:"Alemania",a:"España",d:"27 Nov"},
+  {id:27,g:"F",h:"Bélgica",a:"Marruecos",d:"27 Nov"},
+  {id:28,g:"F",h:"Croacia",a:"Canadá",d:"27 Nov"},
+  {id:29,g:"G",h:"Brasil",a:"Suiza",d:"28 Nov"},
+  {id:30,g:"G",h:"Camerún",a:"Serbia",d:"28 Nov"},
+  {id:31,g:"H",h:"Corea del Sur",a:"Ghana",d:"28 Nov"},
+  {id:32,g:"H",h:"Portugal",a:"Uruguay",d:"28 Nov"},
+  {id:33,g:"A",h:"Ecuador",a:"Senegal",d:"29 Nov"},
+  {id:34,g:"A",h:"Países Bajos",a:"Qatar",d:"29 Nov"},
+  {id:35,g:"B",h:"Gales",a:"Inglaterra",d:"29 Nov"},
+  {id:36,g:"B",h:"Irán",a:"EE.UU.",d:"29 Nov"},
+  {id:37,g:"C",h:"Polonia",a:"Argentina",d:"30 Nov"},
+  {id:38,g:"C",h:"Arabia Saudita",a:"México",d:"30 Nov"},
+  {id:39,g:"D",h:"Australia",a:"Dinamarca",d:"30 Nov"},
+  {id:40,g:"D",h:"Túnez",a:"Francia",d:"30 Nov"},
+  {id:41,g:"E",h:"Costa Rica",a:"Alemania",d:"1 Dic"},
+  {id:42,g:"E",h:"Japón",a:"España",d:"1 Dic"},
+  {id:43,g:"F",h:"Canadá",a:"Marruecos",d:"1 Dic"},
+  {id:44,g:"F",h:"Croacia",a:"Bélgica",d:"1 Dic"},
+  {id:45,g:"G",h:"Camerún",a:"Brasil",d:"2 Dic"},
+  {id:46,g:"G",h:"Serbia",a:"Suiza",d:"2 Dic"},
+  {id:47,g:"H",h:"Ghana",a:"Uruguay",d:"2 Dic"},
+  {id:48,g:"H",h:"Corea del Sur",a:"Portugal",d:"2 Dic"},
+];
+const GOALSCORERS = ["Lionel Messi","Cristiano Ronaldo","Kylian Mbappé","Neymar Jr.","Harry Kane","Robert Lewandowski","Lautaro Martínez","Romelu Lukaku","Vinicius Jr.","Pedri","Bukayo Saka","Cody Gakpo","Richarlison","Olivier Giroud","Memphis Depay","Raheem Sterling"];
+const FLAGS = {"Qatar":"🇶🇦","Ecuador":"🇪🇨","Senegal":"🇸🇳","Países Bajos":"🇳🇱","Inglaterra":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Irán":"🇮🇷","EE.UU.":"🇺🇸","Gales":"🏴󠁧󠁢󠁷󠁬󠁳󠁿","Argentina":"🇦🇷","Arabia Saudita":"🇸🇦","México":"🇲🇽","Polonia":"🇵🇱","Francia":"🇫🇷","Australia":"🇦🇺","Dinamarca":"🇩🇰","Túnez":"🇹🇳","España":"🇪🇸","Costa Rica":"🇨🇷","Alemania":"🇩🇪","Japón":"🇯🇵","Bélgica":"🇧🇪","Canadá":"🇨🇦","Marruecos":"🇲🇦","Croacia":"🇭🇷","Brasil":"🇧🇷","Serbia":"🇷🇸","Suiza":"🇨🇭","Camerún":"🇨🇲","Portugal":"🇵🇹","Ghana":"🇬🇭","Uruguay":"🇺🇾","Corea del Sur":"🇰🇷"};
+const TIPO_COLORS = {
+  promo:  {bg:"rgba(39,174,96,.12)",  border:"rgba(39,174,96,.35)",  text:"#27ae60"},
+  mundial:{bg:"rgba(52,152,219,.12)", border:"rgba(52,152,219,.35)", text:"#3498db"},
+  evento: {bg:"rgba(155,89,182,.12)", border:"rgba(155,89,182,.35)", text:"#9b59b6"},
+  menu:   {bg:"rgba(201,168,76,.12)", border:"rgba(201,168,76,.35)", text:"#C9A84C"},
+};
+const OFERTAS_DEFAULT = [
+  {id:"1",tipo:"promo",emoji:"🍔",titulo:"Promo del Día",desc:"Hamburguesa + papas + bebida. Todos los días hasta las 15hs.",precio:"$8.500",badge:"HOY",activa:true},
+  {id:"2",tipo:"mundial",emoji:"⚽",titulo:"Combo Mundial",desc:"Picada para 4 + 4 birras artesanales. Ideal para ver los partidos.",precio:"$28.000",badge:"MUNDIAL",activa:true},
+  {id:"3",tipo:"evento",emoji:"🎶",titulo:"Noche de Jazz",desc:"Viernes 22 de noviembre. Show en vivo + copa de vino incluida.",precio:"$6.000",badge:"EVENTO",activa:true},
+  {id:"4",tipo:"menu",emoji:"☕",titulo:"Menú Ejecutivo",desc:"Entrada + principal + postre + café. De lunes a viernes al mediodía.",precio:"$12.000",badge:"MENÚ",activa:true},
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ESTADO
+// ─────────────────────────────────────────────────────────────────────────────
+let state = {
+  tab: "inicio",
+  adminTab: "ofertas",
+  isAdmin: false,
+  selGroup: "A",
+  adminSelGroup: "A",
+  // Participante actual
+  myId: null,
+  registered: false,
+  submitted: false,
+  predictions: {},
+  campeon: "",
+  goleador: "",
+  // Datos globales (localStorage)
+  participants: [],
+  officialResults: {},
+  officialSpecials: {campeon:"",goleador:""},
+  ofertas: [],
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STORAGE (localStorage — persiste en el mismo navegador/dispositivo)
+// ─────────────────────────────────────────────────────────────────────────────
+function load() {
+  try {
+    state.participants     = JSON.parse(localStorage.getItem("amapola:participants") || "[]");
+    state.officialResults  = JSON.parse(localStorage.getItem("amapola:results")      || "{}");
+    state.officialSpecials = JSON.parse(localStorage.getItem("amapola:specials")     || '{"campeon":"","goleador":""}');
+    state.ofertas          = JSON.parse(localStorage.getItem("amapola:ofertas")      || "null") || OFERTAS_DEFAULT;
+    // Restaurar sesión si existe
+    const session = JSON.parse(localStorage.getItem("amapola:session") || "null");
+    if (session) {
+      state.myId       = session.myId;
+      state.registered = session.registered;
+      state.submitted  = session.submitted;
+      state.predictions= session.predictions||{};
+      state.campeon    = session.campeon||"";
+      state.goleador   = session.goleador||"";
+    }
+  } catch(e){ console.error(e); }
+}
+function save(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e){}
+}
+function saveSession() {
+  save("amapola:session", {myId:state.myId, registered:state.registered, submitted:state.submitted, predictions:state.predictions, campeon:state.campeon, goleador:state.goleador});
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PUNTOS
+// ─────────────────────────────────────────────────────────────────────────────
+function calcPoints(p) {
+  let pts = 0;
+  Object.entries(state.officialResults).forEach(([id,r])=>{ if(p.predictions&&p.predictions[id]===r) pts+=3; });
+  if(state.officialSpecials.campeon && p.campeon===state.officialSpecials.campeon) pts+=10;
+  if(state.officialSpecials.goleador && p.goleador===state.officialSpecials.goleador) pts+=8;
+  return pts;
+}
+function getRanking() {
+  return [...state.participants].map(p=>({...p,pts:calcPoints(p)})).sort((a,b)=>b.pts-a.pts);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.add("hidden"), 2800);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NAVEGACIÓN
+// ─────────────────────────────────────────────────────────────────────────────
+function goTo(tab) {
+  state.tab = tab;
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page-"+tab).classList.add("active");
+  document.querySelectorAll(".nb").forEach(b=>b.classList.remove("on"));
+  const idx = ["inicio","ofertas","tienda","registro","pronosticos","especiales","ranking","premios","admin"].indexOf(tab);
+  const btns = document.querySelectorAll(".nb");
+  if(idx>=0 && btns[idx]) btns[idx].classList.add("on");
+  renderPage(tab);
+  window.scrollTo(0,0);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER POR PÁGINA
+// ─────────────────────────────────────────────────────────────────────────────
+function renderPage(tab) {
+  if(tab==="inicio")       renderInicio();
+  if(tab==="ofertas")      renderOfertas();
+  if(tab==="tienda")       renderTienda();
+  if(tab==="registro")     renderRegistro();
+  if(tab==="pronosticos")  renderPronosticos();
+  if(tab==="especiales")   renderEspeciales();
+  if(tab==="ranking")      renderRanking();
+  if(tab==="admin")        renderAdmin();
+}
+
+// ── INICIO ───────────────────────────────────────────────────────────────────
+function renderInicio() {
+  document.getElementById("inscriptosCount").textContent = `${state.participants.length} jugadores inscriptos · Ganás premios en Amapola`;
+  document.getElementById("shareUrlInicio").textContent = window.location.href;
+  const btn = document.getElementById("inicioMainBtn");
+  if(state.submitted) {
+    const r = getRanking(); const myR = r.findIndex(p=>p.id===state.myId)+1;
+    btn.textContent = `Ver mi posición #${myR} →`;
+    btn.onclick = ()=>goTo("ranking");
+  } else if(state.registered) {
+    btn.textContent = "Continuar mi prode →";
+    btn.onclick = ()=>goTo("pronosticos");
+  } else {
+    btn.textContent = "Inscribirme gratis →";
+    btn.onclick = ()=>goTo("registro");
+  }
+  // Ofertas destacadas
+  const activas = state.ofertas.filter(o=>o.activa).slice(0,2);
+  const el = document.getElementById("ofertasDestacadas");
+  if(activas.length===0){ el.innerHTML=""; return; }
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">🔥 Ofertas de hoy</div>
+      <button class="btn-ghost" style="padding:4px 10px;font-size:9px" onclick="goTo('ofertas')">Ver todas</button>
+    </div>
+    ${activas.map(o=>ofertaCardHTML(o,true)).join("")}
+  `;
+}
+
+// ── OFERTAS ──────────────────────────────────────────────────────────────────
+function renderOfertas() {
+  const activas = state.ofertas.filter(o=>o.activa);
+  const el = document.getElementById("ofertasLista");
+  if(activas.length===0){ el.innerHTML=`<div class="card" style="text-align:center;padding:32px"><div style="font-size:11px;color:var(--muted)">No hay ofertas activas en este momento.</div></div>`; return; }
+  const tipos = {promo:"Promos del día",mundial:"Especial Mundial",evento:"Eventos",menu:"Menú"};
+  let html = "";
+  Object.keys(tipos).forEach(tipo=>{
+    const porTipo = activas.filter(o=>o.tipo===tipo);
+    if(porTipo.length===0) return;
+    html += `<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;margin-top:4px">${tipos[tipo]}</div>`;
+    html += porTipo.map(o=>ofertaCardHTML(o,false)).join("");
+  });
+  el.innerHTML = html;
+}
+
+function ofertaCardHTML(o, compact) {
+  const c = TIPO_COLORS[o.tipo]||TIPO_COLORS.menu;
+  return `
+    <div class="oferta-card" style="border-color:${c.border}">
+      <span class="oferta-badge" style="background:${c.bg};border:1px solid ${c.border};color:${c.text}">${o.badge}</span>
+      <div class="oferta-titulo">${o.emoji} ${o.titulo}</div>
+      ${compact?"":`<div class="oferta-desc">${o.desc}</div>`}
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+        <div class="oferta-precio">${o.precio}</div>
+        <a class="oferta-btn" href="${TIENDA}" target="_blank">Pedir →</a>
+      </div>
+    </div>
+  `;
+}
+
+// ── TIENDA ───────────────────────────────────────────────────────────────────
+function renderTienda() {
+  const activas = state.ofertas.filter(o=>o.activa).slice(0,3);
+  document.getElementById("tiendaOfertas").innerHTML = activas.length>0
+    ? `<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Destacados de hoy</div>${activas.map(o=>ofertaCardHTML(o,true)).join("")}`
+    : "";
+}
+
+// ── REGISTRO ─────────────────────────────────────────────────────────────────
+function renderRegistro() {
+  const el = document.getElementById("registroContent");
+  if(state.submitted) {
+    const r=getRanking(); const myR=r.findIndex(p=>p.id===state.myId)+1;
+    el.innerHTML=`
+      <div class="ok">
+        <div style="font-size:32px;margin-bottom:6px">🎉</div>
+        <div class="ok-title">¡Ya estás en juego!</div>
+        <div class="ok-txt">Tus pronósticos fueron guardados.<br><strong style="color:var(--gold)">Posición actual: #${myR}</strong><br><br>Compartí el prode con tus amigos 👇</div>
+        <div style="margin-top:18px">
+          <div class="share-box"><span class="share-url">${window.location.href}</span><button class="copy-btn" onclick="copyLink()">Copiar</button></div>
+          <a class="btn-tienda" href="${TIENDA}" target="_blank" style="margin-top:10px">🛒 Pedí algo rico para ver los partidos</a>
+        </div>
+      </div>`;
+    return;
+  }
+  if(state.registered) {
+    el.innerHTML=`<div class="card"><div class="card-title">✦ Ya estás registrado</div><div class="info">Completá tus pronósticos y los especiales para sumar puntos.</div><button class="btn" onclick="goTo('pronosticos')">Ver mis pronósticos →</button></div>`;
+    return;
+  }
+  el.innerHTML=`
+    <div class="card">
+      <div class="info">✦ Completá tus datos, pronosticá los 48 partidos y competí por premios en Amapola.</div>
+      <div class="mb"><label class="lbl">Nombre completo</label><input class="inp" id="regNombre" placeholder="Ej: Martín González"/></div>
+      <div class="mb"><label class="lbl">Email</label><input class="inp" id="regEmail" type="email" placeholder="tu@email.com"/></div>
+      <div class="mb" style="margin-bottom:18px"><label class="lbl">WhatsApp / Teléfono</label><input class="inp" id="regTel" type="tel" placeholder="+54 11 ..."/></div>
+      <button class="btn" onclick="handleRegister()">Continuar con mis pronósticos →</button>
+    </div>
+    <div class="card">
+      <div class="card-title">¿Cómo funciona?</div>
+      ${[["1","Registrate con nombre, email y teléfono."],["2","Pronosticá los 48 partidos (1, X o 2)."],["3","Elegí el campeón y el goleador del torneo."],["4","¡Los mejores ganan premios en Amapola!"]].map(([n,t])=>`<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:11px"><div style="min-width:21px;height:21px;border-radius:50%;background:rgba(201,168,76,.12);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);font-weight:700;flex-shrink:0">${n}</div><div style="font-size:12px;color:var(--muted);line-height:1.65;padding-top:2px">${t}</div></div>`).join("")}
+    </div>
+    <div style="text-align:center;margin-bottom:12px"><span style="font-size:10px;color:var(--muted)">Ya hay <strong style="color:var(--gold)">${state.participants.length}</strong> participantes inscriptos</span></div>
+  `;
+}
+
+function handleRegister() {
+  const n = document.getElementById("regNombre")?.value.trim();
+  const e = document.getElementById("regEmail")?.value.trim();
+  const t = document.getElementById("regTel")?.value.trim();
+  if(!n||!e||!t){ showToast("Completá todos los campos."); return; }
+  const id = Date.now().toString();
+  const p = {id,nombre:n,email:e,telefono:t,predictions:{},campeon:"",goleador:"",createdAt:new Date().toISOString()};
+  state.participants.push(p);
+  save("amapola:participants", state.participants);
+  state.myId = id; state.registered = true;
+  saveSession();
+  showToast("¡Registrado! Ahora completá tus pronósticos.");
+  goTo("pronosticos");
+}
+
+// ── PRONÓSTICOS ───────────────────────────────────────────────────────────────
+function renderPronosticos() {
+  const el = document.getElementById("pronosticosContent");
+  if(!state.registered){ el.innerHTML=`<div class="card"><div class="info">⚠ Primero registrate en "Inscripción".</div><button class="btn" onclick="goTo('registro')">Ir a inscripción →</button></div>`; return; }
+  const total=MATCHES.length, done=Object.keys(state.predictions).length, pct=Math.round(done/total*100);
+  const groupTabs = Object.keys(GROUPS).map(g=>{
+    const groupDone = MATCHES.filter(m=>m.g===g&&state.predictions[m.id]).length;
+    const groupTotal = MATCHES.filter(m=>m.g===g).length;
+    return `<button class="gtab${state.selGroup===g?" on":""}" onclick="setGroup('${g}')">${g} ${groupDone}/${groupTotal}</button>`;
+  }).join("");
+  const matches = MATCHES.filter(m=>m.g===state.selGroup).map(m=>{
+    const official=state.officialResults[m.id], myPick=state.predictions[m.id];
+    const btns = ["1","X","2"].map(v=>{
+      let cls="rbtn";
+      if(myPick===v){ if(official) cls+=official===v?" correct":" wrong"; else cls+=" on"; }
+      const disabled = state.submitted?"disabled":"";
+      return `<button class="${cls}" ${disabled} onclick="setPrediction(${m.id},'${v}')">${v}${official===v?" ✓":""}</button>`;
+    }).join("");
+    const resultBadge = official&&myPick ? `<span class="badge ${myPick===official?"badge-green":"badge-red"}">${myPick===official?"✓":"✗"}</span>` : "";
+    return `
+      <div class="match">
+        <div class="match-top"><span class="match-grp">Grupo ${m.g}</span><div style="display:flex;gap:6px;align-items:center"><span class="match-dt">${m.d}</span>${resultBadge}</div></div>
+        <div class="match-row">
+          <div style="text-align:right"><span class="flag">${FLAGS[m.h]||""}</span><span class="team tl">${m.h}</span></div>
+          <span class="vs-txt">vs</span>
+          <div style="text-align:left"><span class="flag">${FLAGS[m.a]||""}</span><span class="team tr">${m.a}</span></div>
+        </div>
+        <div class="rbtns">${btns}</div>
+      </div>`;
+  }).join("");
+  el.innerHTML=`
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+        <span style="font-size:10px;color:var(--muted)">Partidos completados</span>
+        <span class="badge">${done} / ${total}</span>
+      </div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+    </div>
+    <div class="gtabs">${groupTabs}</div>
+    ${matches}
+    <div style="height:60px"></div>
+  `;
+}
+
+function setGroup(g) { state.selGroup=g; renderPronosticos(); }
+
+function setPrediction(id, val) {
+  if(state.submitted) return;
+  state.predictions[id] = val;
+  saveSession();
+  // Actualizar también en participants
+  const idx = state.participants.findIndex(p=>p.id===state.myId);
+  if(idx>=0){ state.participants[idx].predictions = state.predictions; save("amapola:participants",state.participants); }
+  renderPronosticos();
+}
+
+// ── ESPECIALES ────────────────────────────────────────────────────────────────
+function renderEspeciales() {
+  const el = document.getElementById("especialesContent");
+  if(!state.registered){ el.innerHTML=`<div class="card"><div class="info">⚠ Primero registrate.</div><button class="btn" onclick="goTo('registro')">Ir a inscripción →</button></div>`; return; }
+  const total=MATCHES.length, done=Object.keys(state.predictions).length;
+  const canSend = done===total && state.campeon && state.goleador;
+  const campeonOpts = ALL_TEAMS.map(t=>`<option value="${t}" ${state.campeon===t?"selected":""}>${FLAGS[t]||""} ${t}</option>`).join("");
+  const goleadorOpts = ["","Lionel Messi","Cristiano Ronaldo","Kylian Mbappé","Neymar Jr.","Harry Kane","Robert Lewandowski","Lautaro Martínez","Romelu Lukaku","Vinicius Jr.","Pedri","Bukayo Saka","Cody Gakpo","Richarlison","Olivier Giroud","Memphis Depay","Raheem Sterling"].map(g=>g?`<option value="${g}" ${state.goleador===g?"selected":""}>${g}</option>`:`<option value="">— Elegí un jugador —</option>`).join("");
+  const campeonStatus = state.officialSpecials.campeon && state.campeon ? `<span class="badge ${state.campeon===state.officialSpecials.campeon?"badge-green":"badge-red"}">${state.campeon===state.officialSpecials.campeon?"✓ Correcto":"✗ Incorrecto"}</span>` : "";
+  const goleadorStatus = state.officialSpecials.goleador && state.goleador ? `<span class="badge ${state.goleador===state.officialSpecials.goleador?"badge-green":"badge-red"}">${state.goleador===state.officialSpecials.goleador?"✓ Correcto":"✗ Incorrecto"}</span>` : "";
+
+  el.innerHTML=`
+    <div class="card">
+      <div class="card-title">★ Pronósticos Especiales</div>
+      <div class="info">Estos valen el doble de puntos. ¡Pensalo bien!</div>
+      <div class="mb">
+        <label class="lbl">🏆 Campeón del Mundial</label>
+        <select class="sel" id="selCampeon" onchange="setCampeon(this.value)" ${state.submitted?"disabled":""}>
+          <option value="">— Elegí el campeón —</option>${campeonOpts}
+        </select>
+        ${state.campeon?`<div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:var(--gold)">${FLAGS[state.campeon]||""} ${state.campeon}</span>${campeonStatus}</div>`:""}
+      </div>
+      <div class="divider"></div>
+      <div class="mb" style="margin-top:14px">
+        <label class="lbl">⚽ Goleador del torneo</label>
+        <select class="sel" id="selGoleador" onchange="setGoleador(this.value)" ${state.submitted?"disabled":""}>
+          ${goleadorOpts}
+        </select>
+        ${state.goleador?`<div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:var(--gold)">⚽ ${state.goleador}</span>${goleadorStatus}</div>`:""}
+      </div>
+    </div>
+    ${!state.submitted?`
+    <div class="card">
+      <div class="card-title">Resumen antes de enviar</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:12px;color:var(--muted)">Partidos</span><span style="font-size:12px;color:var(--cream)">${done}/${total}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:12px;color:var(--muted)">Campeón</span><span style="font-size:12px;color:${state.campeon?"var(--cream)":"var(--muted)"}">${state.campeon?(FLAGS[state.campeon]+" "+state.campeon):"Sin elegir"}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:12px;color:var(--muted)">Goleador</span><span style="font-size:12px;color:${state.goleador?"var(--cream)":"var(--muted)"}">${state.goleador||"Sin elegir"}</span></div>
+      <div class="divider"></div>
+      <button class="btn" style="margin-top:12px" ${canSend?"":"disabled"} onclick="handleSubmit()">
+        ${canSend?"✦ Enviar mi prode":`Faltan ${total-done} partidos${!state.campeon||!state.goleador?" y especiales":""}`}
+      </button>
+    </div>`:`
+    <div class="card" style="text-align:center;padding:24px">
+      <div style="font-size:32px;margin-bottom:8px">🎉</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:6px">Prode enviado</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Seguí tu posición en el ranking.</div>
+      <button class="btn" onclick="goTo('ranking')">Ver ranking →</button>
+    </div>`}
+  `;
+}
+
+function setCampeon(v){ state.campeon=v; saveSession(); const idx=state.participants.findIndex(p=>p.id===state.myId); if(idx>=0){state.participants[idx].campeon=v;save("amapola:participants",state.participants);} renderEspeciales(); }
+function setGoleador(v){ state.goleador=v; saveSession(); const idx=state.participants.findIndex(p=>p.id===state.myId); if(idx>=0){state.participants[idx].goleador=v;save("amapola:participants",state.participants);} renderEspeciales(); }
+
+function handleSubmit() {
+  if(!state.myId) return;
+  const idx = state.participants.findIndex(p=>p.id===state.myId);
+  if(idx>=0){ state.participants[idx] = {...state.participants[idx], predictions:state.predictions, campeon:state.campeon, goleador:state.goleador}; }
+  save("amapola:participants", state.participants);
+  state.submitted = true;
+  saveSession();
+  showToast("¡Prode enviado! Seguí el ranking.");
+  goTo("ranking");
+}
+
+// ── RANKING ───────────────────────────────────────────────────────────────────
+function renderRanking() {
+  const ranking = getRanking();
+  const myRank  = state.myId ? ranking.findIndex(p=>p.id===state.myId)+1 : null;
+  const myData  = state.myId ? ranking.find(p=>p.id===state.myId) : null;
+  const medals  = ["🥇","🥈","🥉"];
+  const rows = ranking.map((p,i)=>`
+    <div class="rk${p.id===state.myId?" me":""}">
+      <div class="rk-n">${i<3?medals[i]:i+1}</div>
+      <div class="rk-info">
+        <div class="rk-name">${p.nombre}${p.id===state.myId?" (vos)":""}</div>
+        <div class="rk-sub">${Object.keys(p.predictions||{}).length} pronósticos${p.campeon?" · 🏆 "+p.campeon:""}</div>
+      </div>
+      <div><div class="rk-pts">${p.pts}</div><div class="rk-lbl">puntos</div></div>
+    </div>`).join("")||`<div class="card" style="text-align:center;padding:32px"><div style="font-size:11px;color:var(--muted)">¡Sé el primero en inscribirse!</div></div>`;
+
+  document.getElementById("rankingContent").innerHTML=`
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-title">🏆 Tabla de Posiciones</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:11px;color:var(--muted)">${state.participants.length} participantes</span>
+        <span class="badge">${Object.keys(state.officialResults).length}/${MATCHES.length} jugados</span>
+      </div>
+    </div>
+    ${myData?`
+    <div class="rk me" style="margin-bottom:12px;border-color:rgba(201,168,76,.5)">
+      <div class="rk-n" style="color:var(--gold-lt)">#${myRank}</div>
+      <div class="rk-info"><div class="rk-name">⭐ ${myData.nombre} (vos)</div><div class="rk-sub">${myData.pts} puntos acumulados</div></div>
+      <div><div class="rk-pts">${myData.pts}</div><div class="rk-lbl">puntos</div></div>
+    </div>`:""}
+    ${rows}
+    <div style="margin-top:14px">
+      <div class="share-box"><span class="share-url">📲 ${window.location.href}</span><button class="copy-btn" onclick="copyLink()">Copiar</button></div>
+    </div>
+  `;
+}
+
+// ── ADMIN ─────────────────────────────────────────────────────────────────────
+function setAdminTab(t) {
+  state.adminTab = t;
+  document.querySelectorAll("#adminSubTabs .gtab").forEach((b,i)=>{ b.classList.toggle("on",["ofertas","resultados","especiales","participantes"][i]===t); });
+  renderAdmin();
+}
+
+function renderAdmin() {
+  const el = document.getElementById("adminContent");
+  if(state.adminTab==="ofertas") el.innerHTML = renderAdminOfertas();
+  if(state.adminTab==="resultados") el.innerHTML = renderAdminResultados();
+  if(state.adminTab==="especiales") el.innerHTML = renderAdminEspeciales();
+  if(state.adminTab==="participantes") el.innerHTML = renderAdminParticipantes();
+}
+
+function renderAdminOfertas() {
+  const items = state.ofertas.map(o=>`
+    <div class="oferta-admin">
+      <div style="font-size:22px">${o.emoji}</div>
+      <div class="oferta-admin-info">
+        <div class="oferta-admin-titulo">${o.titulo} · <span style="color:var(--gold)">${o.precio}</span></div>
+        <div class="oferta-admin-desc">${o.desc}</div>
+        <div class="toggle-wrap" onclick="toggleOferta('${o.id}')">
+          <div class="toggle-dot${o.activa?" on":""}"></div>
+          <span class="toggle-label">${o.activa?"Activa":"Oculta"}</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:5px">
+        <button class="icon-btn" onclick="openEditOferta('${o.id}')">✏</button>
+        <button class="icon-btn del" onclick="deleteOferta('${o.id}')">✕</button>
+      </div>
+    </div>`).join("")||`<div style="text-align:center;padding:20px;color:var(--muted);font-size:12px">No hay ofertas. Creá la primera.</div>`;
+  return `
+    <div class="admin-section">
+      <div class="admin-title">🔥 Gestionar Ofertas</div>
+      <div class="info" style="margin-bottom:14px">Creá, editá y activá/desactivá las ofertas visibles para los clientes.</div>
+      <button class="btn btn-green btn-sm" style="margin-bottom:14px" onclick="openNewOferta()">+ Nueva oferta</button>
+      ${items}
+    </div>`;
+}
+
+function renderAdminResultados() {
+  const groupTabs = Object.keys(GROUPS).map(g=>{
+    const done=MATCHES.filter(m=>m.g===g&&state.officialResults[m.id]).length;
+    const total=MATCHES.filter(m=>m.g===g).length;
+    return `<button class="gtab${state.adminSelGroup===g?" on":""}" onclick="setAdminGroup('${g}')">G${g} ${done}/${total}</button>`;
+  }).join("");
+  const rows = MATCHES.filter(m=>m.g===state.adminSelGroup).map(m=>{
+    const r=state.officialResults[m.id];
+    const btns = ["1","X","2"].map(v=>`<button class="admin-rbtn${r===v?" on":""}" onclick="setResult(${m.id},'${v}')">${v}</button>`).join("");
+    const del = r?`<button class="admin-rbtn del" onclick="clearResult(${m.id})">✕</button>`:"";
+    return `<div class="admin-match"><div class="admin-teams"><div>${FLAGS[m.h]||""} ${m.h} <span style="color:var(--muted)">vs</span> ${FLAGS[m.a]||""} ${m.a}</div><div style="font-size:9px;color:var(--muted)">${m.d}</div></div><div class="admin-rbtns">${btns}${del}</div></div>`;
+  }).join("");
+  const total=Object.keys(state.officialResults).length;
+  return `
+    <div class="admin-section">
+      <div class="admin-title">📋 Resultados Oficiales</div>
+      <div class="info" style="margin-bottom:14px">Cargá el resultado real. Los puntos se recalculan automáticamente.</div>
+      <div class="gtabs">${groupTabs}</div>
+      ${rows}
+      <div style="margin-top:12px;display:flex;justify-content:space-between;font-size:10px;color:var(--muted);border-top:1px solid var(--border);padding-top:10px"><span>Total cargados</span><span class="badge">${total}/${MATCHES.length}</span></div>
+    </div>`;
+}
+
+function renderAdminEspeciales() {
+  const campeonOpts = ALL_TEAMS.map(t=>`<option value="${t}" ${state.officialSpecials.campeon===t?"selected":""}>${FLAGS[t]||""} ${t}</option>`).join("");
+  const goleadorOpts = ["","Lionel Messi","Cristiano Ronaldo","Kylian Mbappé","Neymar Jr.","Harry Kane","Robert Lewandowski","Lautaro Martínez","Romelu Lukaku","Vinicius Jr.","Pedri","Bukayo Saka","Cody Gakpo","Richarlison","Olivier Giroud","Memphis Depay","Raheem Sterling"].map(g=>g?`<option value="${g}" ${state.officialSpecials.goleador===g?"selected":""}>${g}</option>`:`<option value="">— Sin definir —</option>`).join("");
+  return `
+    <div class="admin-section">
+      <div class="admin-title">★ Especiales Oficiales</div>
+      <div class="info" style="margin-bottom:14px">Una vez definidos, los puntos extra se asignan automáticamente.</div>
+      <div class="mb"><label class="lbl">🏆 Campeón oficial</label><select class="sel" onchange="setOfficialCampeon(this.value)"><option value="">— Sin definir —</option>${campeonOpts}</select>${state.officialSpecials.campeon?`<div style="margin-top:6px;font-size:12px;color:var(--gold)">${FLAGS[state.officialSpecials.campeon]||""} ${state.officialSpecials.campeon}</div>`:""}</div>
+      <div class="divider"></div>
+      <div class="mb" style="margin-top:14px"><label class="lbl">⚽ Goleador oficial</label><select class="sel" onchange="setOfficialGoleador(this.value)">${goleadorOpts}</select>${state.officialSpecials.goleador?`<div style="margin-top:6px;font-size:12px;color:var(--gold)">⚽ ${state.officialSpecials.goleador}</div>`:""}</div>
+    </div>`;
+}
+
+function renderAdminParticipantes() {
+  const ranking = getRanking();
+  if(ranking.length===0) return `<div class="admin-section"><div class="admin-title">👥 Participantes (0)</div><div style="text-align:center;padding:24px;color:var(--muted);font-size:12px">Todavía no hay participantes.</div></div>`;
+  const rows = ranking.map((p,i)=>`
+    <tr>
+      <td style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:14px">${i+1}</td>
+      <td><div style="font-weight:500">${p.nombre}</div><div style="font-size:9px;color:var(--muted)">${p.campeon?"🏆 "+p.campeon:""}</div></td>
+      <td><div style="font-size:10px;color:var(--muted)">${p.email}</div><div style="font-size:10px;color:var(--muted)">${p.telefono}</div></td>
+      <td><span class="badge">${Object.keys(p.predictions||{}).length}/${MATCHES.length}</span></td>
+      <td style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600">${p.pts}</td>
+      <td><button style="background:none;border:none;color:var(--red);cursor:pointer;font-size:14px;padding:2px 6px" onclick="deleteParticipant('${p.id}','${p.nombre}')">✕</button></td>
+    </tr>`).join("");
+  return `
+    <div class="admin-section">
+      <div class="admin-title">👥 Participantes (${ranking.length})</div>
+      <div style="overflow-x:auto">
+        <table class="p-table">
+          <thead><tr><th>#</th><th>Nombre</th><th>Contacto</th><th>Prode</th><th>Pts</th><th></th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ── ACCIONES ADMIN ────────────────────────────────────────────────────────────
+function setAdminGroup(g){ state.adminSelGroup=g; renderAdmin(); }
+
+function setResult(id, val) {
+  state.officialResults[id] = val;
+  save("amapola:results", state.officialResults);
+  showToast("Resultado guardado ✓");
+  renderAdmin();
+}
+function clearResult(id) {
+  delete state.officialResults[id];
+  save("amapola:results", state.officialResults);
+  showToast("Resultado eliminado.");
+  renderAdmin();
+}
+function setOfficialCampeon(v) {
+  state.officialSpecials.campeon = v;
+  save("amapola:specials", state.officialSpecials);
+  showToast("Campeón guardado ✓");
+  renderAdmin();
+}
+function setOfficialGoleador(v) {
+  state.officialSpecials.goleador = v;
+  save("amapola:specials", state.officialSpecials);
+  showToast("Goleador guardado ✓");
+  renderAdmin();
+}
+function deleteParticipant(id, nombre) {
+  if(!confirm(`¿Eliminar a ${nombre}?`)) return;
+  state.participants = state.participants.filter(p=>p.id!==id);
+  save("amapola:participants", state.participants);
+  showToast("Participante eliminado.");
+  renderAdmin();
+}
+
+// ── OFERTAS ADMIN ─────────────────────────────────────────────────────────────
+function openNewOferta() {
+  document.getElementById("ofEditId").value="";
+  document.getElementById("ofEmoji").value="🍔";
+  document.getElementById("ofBadge").value="";
+  document.getElementById("ofTipo").value="promo";
+  document.getElementById("ofTitulo").value="";
+  document.getElementById("ofDesc").value="";
+  document.getElementById("ofPrecio").value="";
+  document.getElementById("modalOfertaTitle").textContent="Nueva oferta";
+  document.getElementById("modalOferta").classList.remove("hidden");
+}
+function openEditOferta(id) {
+  const o = state.ofertas.find(x=>x.id===id);
+  if(!o) return;
+  document.getElementById("ofEditId").value=id;
+  document.getElementById("ofEmoji").value=o.emoji;
+  document.getElementById("ofBadge").value=o.badge;
+  document.getElementById("ofTipo").value=o.tipo;
+  document.getElementById("ofTitulo").value=o.titulo;
+  document.getElementById("ofDesc").value=o.desc;
+  document.getElementById("ofPrecio").value=o.precio;
+  document.getElementById("modalOfertaTitle").textContent="Editar oferta";
+  document.getElementById("modalOferta").classList.remove("hidden");
+}
+function closeOfertaModal() { document.getElementById("modalOferta").classList.add("hidden"); }
+function saveOferta() {
+  const titulo = document.getElementById("ofTitulo").value.trim();
+  if(!titulo){ showToast("El título es obligatorio."); return; }
+  const id = document.getElementById("ofEditId").value;
+  const of = {
+    id: id||Date.now().toString(),
+    emoji: document.getElementById("ofEmoji").value||"🍔",
+    badge: document.getElementById("ofBadge").value.toUpperCase()||"PROMO",
+    tipo:  document.getElementById("ofTipo").value,
+    titulo,
+    desc:  document.getElementById("ofDesc").value,
+    precio:document.getElementById("ofPrecio").value,
+    activa: id ? (state.ofertas.find(x=>x.id===id)?.activa??true) : true,
+  };
+  if(id) state.ofertas = state.ofertas.map(x=>x.id===id?of:x);
+  else   state.ofertas.push(of);
+  save("amapola:ofertas", state.ofertas);
+  closeOfertaModal();
+  showToast("Oferta guardada ✓");
+  renderAdmin();
+}
+function toggleOferta(id) {
+  state.ofertas = state.ofertas.map(o=>o.id===id?{...o,activa:!o.activa}:o);
+  save("amapola:ofertas", state.ofertas);
+  renderAdmin();
+}
+function deleteOferta(id) {
+  if(!confirm("¿Eliminar esta oferta?")) return;
+  state.ofertas = state.ofertas.filter(o=>o.id!==id);
+  save("amapola:ofertas", state.ofertas);
+  showToast("Oferta eliminada.");
+  renderAdmin();
+}
+
+// ── ADMIN AUTH ────────────────────────────────────────────────────────────────
+function toggleAdminModal() {
+  if(state.isAdmin){ state.isAdmin=false; document.getElementById("adminNavBtn").classList.add("hidden"); document.querySelector(".admin-badge").textContent="⚙ Admin"; goTo("inicio"); return; }
+  document.getElementById("adminPwInput").value="";
+  document.getElementById("adminPwErr").classList.add("hidden");
+  document.getElementById("modalAdmin").classList.remove("hidden");
+  setTimeout(()=>document.getElementById("adminPwInput").focus(),100);
+}
+function closeAdminModal() { document.getElementById("modalAdmin").classList.add("hidden"); }
+function checkAdmin() {
+  const v = document.getElementById("adminPwInput").value;
+  if(v===ADMIN_PW){
+    state.isAdmin=true;
+    document.getElementById("adminNavBtn").classList.remove("hidden");
+    document.querySelector(".admin-badge").textContent="🔓 Admin";
+    closeAdminModal();
+    goTo("admin");
+  } else {
+    document.getElementById("adminPwErr").classList.remove("hidden");
+  }
+}
+
+// ── SHARE ─────────────────────────────────────────────────────────────────────
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(()=>showToast("¡Link copiado!")).catch(()=>showToast("Copiá el link manualmente."));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────────────────────
+load();
+renderPage("inicio");
+</script>
+</body>
+</html>
