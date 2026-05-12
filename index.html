@@ -174,7 +174,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;m
     <button class="nb" onclick="goTo('tienda')">🛒 Tienda</button>
     <button class="nb" onclick="goTo('registro')">📝 Inscripción</button>
     <button class="nb" onclick="goTo('pronosticos')">⚽ Pronós.</button>
-    <button class="nb" onclick="goTo('especiales')">★ Especiales</button>
     <button class="nb" onclick="goTo('ranking')">🏆 Ranking</button>
     <button class="nb" onclick="goTo('premios')">🎁 Premios</button>
     <button class="nb rtab hidden" id="adminNavBtn" onclick="goTo('admin')">⚙ Admin</button>
@@ -315,6 +314,26 @@ html,body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;m
         <button class="btn btn-green" style="flex:1" onclick="saveOferta()">Guardar</button>
         <button class="btn-ghost" onclick="closeOfertaModal()">Cancelar</button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMACIÓN INSCRIPCIÓN -->
+  <div class="modal-bg hidden" id="modalConfirmacion">
+    <div class="modal" style="text-align:center">
+      <div style="font-size:48px;margin-bottom:12px">🎉</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);margin-bottom:8px">¡Bienvenido al prode!</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px">
+        Tu inscripción fue confirmada.<br>
+        Ahora completá tus pronósticos —<br>
+        <strong style="color:var(--cream)">72 partidos + campeón + goleador</strong><br>
+        para sumar todos los puntos posibles.
+      </div>
+      <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:12px 16px;margin-bottom:20px;font-size:11px;color:var(--muted);line-height:1.6">
+        💡 Los especiales (campeón y goleador) los encontrás al final de la sección Pronósticos.
+      </div>
+      <button class="btn" onclick="document.getElementById('modalConfirmacion').classList.add('hidden');goTo('pronosticos')">
+        Ir a mis pronósticos →
+      </button>
     </div>
   </div>
 
@@ -700,20 +719,24 @@ async function handleRegister(){
   const r=await sbUpsert("participantes",p);
   if(r.ok){
     S.participants.push(p);S.myId=id;S.registered=true;
-    saveSession();showToast("¡Registrado!");goTo("pronosticos");
+    saveSession();
+    document.getElementById("modalConfirmacion").classList.remove("hidden");
   }else{showToast("Error al registrar. Intentá de nuevo.");}
 }
 
-// ─── PRONÓSTICOS ─────────────────────────────────────────────────────────────
+// ─── PRONÓSTICOS + ESPECIALES INTEGRADOS ─────────────────────────────────────
 function renderPronosticos(){
   const el=document.getElementById("pronosticosContent");
   if(!S.registered){el.innerHTML=`<div class="card"><div class="info">⚠ Primero registrate.</div><button class="btn" onclick="goTo('registro')">Ir a inscripción →</button></div>`;return;}
   const total=MATCHES.length,done=Object.keys(S.predictions).length,pct=Math.round(done/total*100);
+  const canSend=done===total&&S.campeon&&S.goleador&&S.goleador.trim().length>1;
+
   const groupTabs=Object.keys(GROUPS).map(g=>{
     const gd=MATCHES.filter(m=>m.g===g&&S.predictions[m.id]).length;
     const gt=MATCHES.filter(m=>m.g===g).length;
-    return `<button class="gtab${S.selGroup===g?" on":""}" onclick="setGroup('${g}')">${g} ${gd}/${gt}</button>`;
+    return `<button class="gtab${S.selGroup===g?" on":""}" onclick="setGroup('${g}')">${FLAGS[GROUPS[g][0]]||""} ${g} ${gd}/${gt}</button>`;
   }).join("");
+
   const matches=MATCHES.filter(m=>m.g===S.selGroup).map(m=>{
     const official=S.officialResults[m.id],myPick=S.predictions[m.id];
     const btns=["1","X","2"].map(v=>{
@@ -724,7 +747,59 @@ function renderPronosticos(){
     const rb=official&&myPick?`<span class="badge ${myPick===official?"badge-green":"badge-red"}">${myPick===official?"✓":"✗"}</span>`:"";
     return `<div class="match"><div class="match-top"><span class="match-grp">Grupo ${m.g}</span><div style="display:flex;gap:6px;align-items:center"><span class="match-dt">${m.d}</span>${rb}</div></div><div class="match-row"><div style="text-align:right"><span class="flag">${FLAGS[m.h]||""}</span><span class="team tl">${m.h}</span></div><span class="vs-txt">vs</span><div style="text-align:left"><span class="flag">${FLAGS[m.a]||""}</span><span class="team tr">${m.a}</span></div></div><div class="rbtns">${btns}</div></div>`;
   }).join("");
-  el.innerHTML=`<div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px"><span style="font-size:10px;color:var(--muted)">Completados</span><span class="badge">${done} / ${total}</span></div><div class="prog-wrap"><div class="prog-bar" style="width:${pct}%"></div></div></div><div class="gtabs">${groupTabs}</div>${matches}<div style="height:60px"></div>`;
+
+  // Especiales
+  const cOpts=ALL_TEAMS.map(t=>`<option value="${t}" ${S.campeon===t?"selected":""}>${FLAGS[t]||""} ${t}</option>`).join("");
+  const cStatus=S.officialSpecials.campeon&&S.campeon?`<span class="badge ${S.campeon===S.officialSpecials.campeon?"badge-green":"badge-red"}">${S.campeon===S.officialSpecials.campeon?"✓ Correcto":"✗ Incorrecto"}</span>`:"";
+  const gStatus=S.officialSpecials.goleador&&S.goleador?`<span class="badge ${S.goleador===S.officialSpecials.goleador?"badge-green":"badge-red"}">${S.goleador===S.officialSpecials.goleador?"✓ Correcto":"✗ Incorrecto"}</span>`:"";
+
+  const especialesHTML = S.submitted ? `
+    <div class="card" style="text-align:center;padding:24px">
+      <div style="font-size:32px;margin-bottom:8px">🎉</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:6px">Prode enviado</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Seguí tu posición en el ranking.</div>
+      <button class="btn" onclick="goTo('ranking')">Ver ranking →</button>
+    </div>` : `
+    <div class="card" style="margin-top:4px">
+      <div class="card-title">★ Pronósticos Especiales</div>
+      <div class="info" style="margin-bottom:14px">Valen el doble de puntos. Completalos para poder enviar tu prode.</div>
+      <div class="mb">
+        <label class="lbl">🏆 Campeón del Mundial</label>
+        <select class="sel" onchange="setCampeon(this.value)">
+          <option value="">— Elegí el campeón —</option>${cOpts}
+        </select>
+        ${S.campeon?`<div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:var(--gold)">${FLAGS[S.campeon]||""} ${S.campeon}</span>${cStatus}</div>`:""}
+      </div>
+      <div class="divider"></div>
+      <div class="mb" style="margin-top:14px">
+        <label class="lbl">⚽ Goleador del torneo</label>
+        <input class="inp" id="goleadorInput" type="text" placeholder="Ej: Lionel Messi" value="${S.goleador||""}"
+          oninput="updateGoleador(this.value)"
+          style="margin-bottom:4px"/>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px">Escribí el nombre completo del jugador que creés que va a ser el máximo goleador.</div>
+        ${S.goleador?`<div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:var(--gold)">⚽ ${S.goleador}</span>${gStatus}</div>`:""}
+      </div>
+      <div class="divider"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;margin-top:14px"><span style="font-size:12px;color:var(--muted)">Partidos completados</span><span style="font-size:12px;color:${done===total?"var(--green)":"var(--cream)"}">${done}/${total}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:12px;color:var(--muted)">Campeón</span><span style="font-size:12px;color:${S.campeon?"var(--cream)":"var(--muted)"}">${S.campeon?(FLAGS[S.campeon]+" "+S.campeon):"Sin elegir"}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><span style="font-size:12px;color:var(--muted)">Goleador</span><span style="font-size:12px;color:${S.goleador?"var(--cream)":"var(--muted)"}">${S.goleador||"Sin completar"}</span></div>
+      <button class="btn" ${canSend?"":"disabled"} onclick="handleSubmit()">
+        ${canSend?"✦ Enviar mi prode":`Faltan ${total-done} partidos${!S.campeon||!S.goleador?" y especiales":""}`}
+      </button>
+    </div>`;
+
+  el.innerHTML=`
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+        <span style="font-size:10px;color:var(--muted)">Partidos completados</span>
+        <span class="badge">${done} / ${total}</span>
+      </div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+    </div>
+    <div class="gtabs">${groupTabs}</div>
+    ${matches}
+    ${especialesHTML}
+    <div style="height:60px"></div>`;
 }
 function setGroup(g){S.selGroup=g;renderPronosticos();}
 async function setPrediction(id,val){
@@ -735,43 +810,38 @@ async function setPrediction(id,val){
   renderPronosticos();
 }
 
-// ─── ESPECIALES ──────────────────────────────────────────────────────────────
-function renderEspeciales(){
-  const el=document.getElementById("especialesContent");
-  if(!S.registered){el.innerHTML=`<div class="card"><div class="info">⚠ Primero registrate.</div><button class="btn" onclick="goTo('registro')">Ir a inscripción →</button></div>`;return;}
-  const total=MATCHES.length,done=Object.keys(S.predictions).length,canSend=done===total&&S.campeon&&S.goleador;
-  const cOpts=ALL_TEAMS.map(t=>`<option value="${t}" ${S.campeon===t?"selected":""}>${FLAGS[t]||""} ${t}</option>`).join("");
-  const gOpts=["","Lionel Messi","Cristiano Ronaldo","Kylian Mbappé","Neymar Jr.","Harry Kane","Robert Lewandowski","Lautaro Martínez","Romelu Lukaku","Vinicius Jr.","Pedri","Bukayo Saka","Cody Gakpo","Richarlison","Olivier Giroud","Memphis Depay","Raheem Sterling"].map(g=>g?`<option value="${g}" ${S.goleador===g?"selected":""}>${g}</option>`:`<option value="">— Elegí un jugador —</option>`).join("");
-  const cStatus=S.officialSpecials.campeon&&S.campeon?`<span class="badge ${S.campeon===S.officialSpecials.campeon?"badge-green":"badge-red"}">${S.campeon===S.officialSpecials.campeon?"✓ Correcto":"✗ Incorrecto"}</span>`:"";
-  const gStatus=S.officialSpecials.goleador&&S.goleador?`<span class="badge ${S.goleador===S.officialSpecials.goleador?"badge-green":"badge-red"}">${S.goleador===S.officialSpecials.goleador?"✓ Correcto":"✗ Incorrecto"}</span>`:"";
-  el.innerHTML=`
-    <div class="card">
-      <div class="card-title">★ Pronósticos Especiales</div>
-      <div class="info">Estos valen el doble de puntos.</div>
-      <div class="mb"><label class="lbl">🏆 Campeón del Mundial</label><select class="sel" onchange="setCampeon(this.value)" ${S.submitted?"disabled":""}><option value="">— Elegí el campeón —</option>${cOpts}</select>${S.campeon?`<div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:var(--gold)">${FLAGS[S.campeon]||""} ${S.campeon}</span>${cStatus}</div>`:""}</div>
-      <div class="divider"></div>
-      <div class="mb" style="margin-top:14px"><label class="lbl">⚽ Goleador del torneo</label><select class="sel" onchange="setGoleador(this.value)" ${S.submitted?"disabled":""}>${gOpts}</select>${S.goleador?`<div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:var(--gold)">⚽ ${S.goleador}</span>${gStatus}</div>`:""}</div>
-    </div>
-    ${!S.submitted?`<div class="card"><div class="card-title">Resumen antes de enviar</div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:12px;color:var(--muted)">Partidos</span><span style="font-size:12px;color:var(--cream)">${done}/${total}</span></div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:12px;color:var(--muted)">Campeón</span><span style="font-size:12px;color:${S.campeon?"var(--cream)":"var(--muted)"}">${S.campeon?(FLAGS[S.campeon]+" "+S.campeon):"Sin elegir"}</span></div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:12px;color:var(--muted)">Goleador</span><span style="font-size:12px;color:${S.goleador?"var(--cream)":"var(--muted)"}">${S.goleador||"Sin elegir"}</span></div><div class="divider"></div><button class="btn" style="margin-top:12px" ${canSend?"":"disabled"} onclick="handleSubmit()">${canSend?"✦ Enviar mi prode":`Faltan ${total-done} partidos${!S.campeon||!S.goleador?" y especiales":""}`}</button></div>`
-    :`<div class="card" style="text-align:center;padding:24px"><div style="font-size:32px;margin-bottom:8px">🎉</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:6px">Prode enviado</div><div style="font-size:12px;color:var(--muted);margin-bottom:14px">Seguí tu posición en el ranking.</div><button class="btn" onclick="goTo('ranking')">Ver ranking →</button></div>`}`;
-}
+// ─── ESPECIALES (ahora integrado en pronósticos) ──────────────────────────────
+function renderEspeciales(){ goTo("pronosticos"); }
 async function setCampeon(v){
   S.campeon=v;saveSession();
   const idx=S.participants.findIndex(p=>p.id===S.myId);
   if(idx>=0){S.participants[idx].campeon=v;await sbPatch("participantes",{id:S.myId},{campeon:v});}
-  renderEspeciales();
+  renderPronosticos();
+}
+async function updateGoleador(v){
+  S.goleador=v;saveSession();
+  const idx=S.participants.findIndex(p=>p.id===S.myId);
+  if(idx>=0){S.participants[idx].goleador=v;}
+  // Guardado en Supabase con debounce para no llamar en cada tecla
+  clearTimeout(window._goleadorTimer);
+  window._goleadorTimer=setTimeout(async()=>{
+    await sbPatch("participantes",{id:S.myId},{goleador:v});
+  },800);
 }
 async function setGoleador(v){
   S.goleador=v;saveSession();
   const idx=S.participants.findIndex(p=>p.id===S.myId);
   if(idx>=0){S.participants[idx].goleador=v;await sbPatch("participantes",{id:S.myId},{goleador:v});}
-  renderEspeciales();
+  renderPronosticos();
 }
 async function handleSubmit(){
   if(!S.myId)return;
+  // Guardar goleador final antes de enviar
+  const goleadorFinal = document.getElementById("goleadorInput")?.value.trim()||S.goleador;
+  S.goleador=goleadorFinal;
   const idx=S.participants.findIndex(p=>p.id===S.myId);
-  if(idx>=0){S.participants[idx]={...S.participants[idx],predictions:S.predictions,campeon:S.campeon,goleador:S.goleador,submitted:true};}
-  await sbPatch("participantes",{id:S.myId},{predictions:S.predictions,campeon:S.campeon,goleador:S.goleador,submitted:true});
+  if(idx>=0){S.participants[idx]={...S.participants[idx],predictions:S.predictions,campeon:S.campeon,goleador:goleadorFinal,submitted:true};}
+  await sbPatch("participantes",{id:S.myId},{predictions:S.predictions,campeon:S.campeon,goleador:goleadorFinal,submitted:true});
   S.submitted=true;saveSession();showToast("¡Prode enviado!");goTo("ranking");
 }
 
